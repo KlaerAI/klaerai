@@ -3,7 +3,7 @@
 import React, {useRef, useState, useEffect} from "react";
 import {motion, useInView} from "framer-motion";
 import Link from "next/link";
-import {Send, MessageCircle} from "lucide-react";
+import {Send, MessageCircle, Github, Mail} from "lucide-react";
 
 const FOOTER_LINKS = [
   {
@@ -53,72 +53,119 @@ export function Footer() {
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         {/* CTA Section */}
-        <motion.div
-          initial={{opacity: 0, y: 40}}
-          animate={isInView ? {opacity: 1, y: 0} : {}}
-          transition={{duration: 0.8, ease: [0.76, 0, 0.24, 1]}}
-          className="text-center mb-20 md:mb-28"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-light mb-6 tracking-tight">
-            Campus{" "}
-            <span className="font-bold text-[var(--accent-cyan)]">
-              Reimagined
-            </span>
-            <span className="text-[var(--accent-cyan)]">.</span>
-          </h2>
-          <p className="text-[var(--gray-body)] text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Ready to transform your college experience? Join thousands of
-            students already building their future.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <motion.button
-              whileHover={{scale: 1.05}}
-              whileTap={{scale: 0.98}}
-              className="px-10 md:px-14 py-5 md:py-6 rounded-full bg-white text-black font-bold text-lg md:text-xl tracking-wide flex items-center gap-3 shadow-[0_0_60px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_80px_-10px_rgba(255,255,255,0.5)] transition-all"
-            >
-              Join as Student
-              <Send className="w-5 h-5" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{scale: 1.05}}
-              whileTap={{scale: 0.98}}
-              className="px-10 md:px-12 py-5 md:py-6 rounded-full border-2 border-white/20 text-white font-semibold text-lg flex items-center gap-3 hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Partner with Us
-            </motion.button>
-          </div>
-        </motion.div>
 
         {/* Links Grid */}
         <motion.div
           initial={{opacity: 0}}
           animate={isInView ? {opacity: 1} : {}}
           transition={{duration: 0.8, delay: 0.3}}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 py-12 border-t border-white/10"
+          className="grid grid-cols-1 md:grid-cols-12 gap-12 py-16 border-t border-white/10"
         >
-          {FOOTER_LINKS.map((column, i) => (
-            <div key={i}>
-              <h4 className="text-sm font-bold tracking-wider uppercase text-white mb-6">
-                {column.title}
-              </h4>
-              <ul className="space-y-3">
-                {column.links.map((link, j) => (
-                  <li key={j}>
-                    <Link
-                      href="#"
-                      className="text-[var(--gray-body)] hover:text-white transition-colors text-sm"
-                    >
-                      {link}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {/* Brand Column */}
+          <div className="md:col-span-4 space-y-6">
+            <h4 className="text-xl font-bold text-white tracking-tight">
+              Digital<span className="text-[var(--accent-cyan)]">Campus</span>
+            </h4>
+            <p className="text-[var(--gray-body)] leading-relaxed max-w-sm">
+              Empowering the next generation of builders, creators, and leaders.
+              The future of campus connection is here.
+            </p>
+          </div>
+
+          {/* Links Columns */}
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-sm font-bold tracking-wider uppercase text-white">
+              Platform
+            </h4>
+            <ul className="space-y-3">
+              {["AI Tutor", "Events", "Marketplace", "Forum"].map((link) => (
+                <li key={link}>
+                  <Link
+                    href="#"
+                    className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-sm font-bold tracking-wider uppercase text-white">
+              Company
+            </h4>
+            <ul className="space-y-3">
+              {["About", "Careers", "Blog", "Press"].map((link) => (
+                <li key={link}>
+                  <Link
+                    href="#"
+                    className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Connect with Builders Column */}
+          <div className="md:col-span-4 space-y-6">
+            <h4 className="text-sm font-bold tracking-wider uppercase text-white">
+              Connect with Builders
+            </h4>
+            <div className="space-y-4">
+              {/* Ayush */}
+              <div className="group p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-[var(--accent-cyan)]/30 hover:bg-[var(--accent-cyan)]/5 transition-all duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white font-bold text-lg">
+                    Ayush Kumar
+                  </span>
+                  <a
+                    href="https://github.com/ayushkumar320"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[var(--accent-cyan)] hover:text-black transition-all group-hover:scale-105"
+                  >
+                    <Github className="w-4 h-4" />
+                    <span className="text-xs font-bold">Follow on GitHub</span>
+                  </a>
+                </div>
+                <a
+                  href="mailto:ayushkumar85385@gmail.com"
+                  className="text-sm text-[var(--gray-body)] group-hover:text-white transition-colors font-mono break-all flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4 text-[var(--accent-cyan)]" />
+                  ayushkumar85385@gmail.com
+                </a>
+              </div>
+
+              {/* Mobasshir */}
+              <div className="group p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-[var(--accent-cyan)]/30 hover:bg-[var(--accent-cyan)]/5 transition-all duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white font-bold text-lg">
+                    Md. Mobasshir
+                  </span>
+                  <a
+                    href="https://github.com/mobi2400"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[var(--accent-cyan)] hover:text-black transition-all group-hover:scale-105"
+                  >
+                    <Github className="w-4 h-4" />
+                    <span className="text-xs font-bold">Follow on GitHub</span>
+                  </a>
+                </div>
+                <a
+                  href="mailto:mobasshirkhan9931@gmail.com"
+                  className="text-sm text-[var(--gray-body)] group-hover:text-white transition-colors font-mono break-all flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4 text-[var(--accent-cyan)]" />
+                  mobasshirkhan9931@gmail.com
+                </a>
+              </div>
             </div>
-          ))}
+          </div>
         </motion.div>
 
         {/* Bottom Bar */}

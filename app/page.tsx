@@ -15,11 +15,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main
-        className={`
-          transition-opacity duration-1000 ease-out 
-          ${isLoaded ? "opacity-100" : "opacity-0"}
-          flex flex-col items-center justify-center min-h-screen px-4
-        `}
+        className="flex flex-col items-center justify-center min-h-screen px-4"
       >
         <div className="max-w-4xl w-full space-y-24">
           {/* Header/Nav placeholder */}

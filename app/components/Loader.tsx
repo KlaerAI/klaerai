@@ -25,17 +25,18 @@ export default function Loader({ onComplete, minDuration = 4000 }: LoaderProps) 
 
     useEffect(() => {
         // Start animation sequence
-        const duration = minDuration; // Total duration target
         const countStart = 1000; // ms
         const countDuration = 2500; // ms (1s to 3.5s)
         const fadeOutStart = 3500; // ms
-        const fadeDuration = 500; // ms
+        const slideDuration = 1000; // ms
+        // Ensure total duration includes the full slide transition
+        const duration = Math.max(minDuration, fadeOutStart + slideDuration);
 
         const animate = (time: number) => {
             if (!startTimeRef.current) startTimeRef.current = time;
             const elapsed = time - startTimeRef.current;
 
-            // Phase 1: Logo Enter (0-1s) handled by CSS transitions mounted at start
+            // Phase 1: Logo Enter (0-1s) handled by CSS transitions
             if (elapsed < countStart) {
                 setPhase(1);
                 setProgress(0);
@@ -49,21 +50,17 @@ export default function Loader({ onComplete, minDuration = 4000 }: LoaderProps) 
                 // (technically user said 0-100% linearly, but general ease requested too. I'll stick to linear for digits to avoid jarring speed changes)
                 setProgress(Math.floor(clampedProgress * 100));
             }
-            // Phase 3: Fade Out (3.5s - 4s)
+            // Phase 3: Transition Out (3.5s - 4.5s)
             else if (elapsed >= fadeOutStart && elapsed < duration) {
                 setPhase(3);
                 setProgress(100);
-                // Calculate opacity for fade out
-                const fadeProgress = (elapsed - fadeOutStart) / fadeDuration;
-                setOpacity(1 - easeInOutCubic(Math.min(fadeProgress, 1)));
             }
             // Phase 4: Done
             else if (elapsed >= duration) {
                 setPhase(4);
-                setOpacity(0);
                 setIsVisible(false);
                 if (onComplete) onComplete();
-                return; // Stop animation loop
+                return;
             }
 
             requestRef.current = requestAnimationFrame(animate);
@@ -80,18 +77,22 @@ export default function Loader({ onComplete, minDuration = 4000 }: LoaderProps) 
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#FFFFFF]"
-            style={{ opacity: opacity }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#FFFFFF] transition-transform duration-[1000ms] ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
+            style={{
+                transform: phase === 3 ? "translateY(-100%)" : "translateY(0%)"
+            }}
         >
             {/* Brand Logo Container */}
             {/* Position: ~40% from left, ~45% from top */}
             <div
-                className="absolute transition-all duration-1000 ease-out"
+                className="absolute transition-all duration-[1000ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
                 style={{
                     left: "40%",
                     top: "45%",
-                    transform: phase >= 1 ? "translateY(0) opacity(1)" : "translateY(10px) opacity(0)",
-                    opacity: phase >= 1 ? 1 : 0
+                    opacity: phase === 3 ? 0 : (phase >= 1 ? 1 : 0),
+                    transform: phase === 3
+                        ? "translateY(-200px)"  // Parallax Exit
+                        : (phase >= 1 ? "translateY(0)" : "translateY(10px)")
                 }}
             >
                 <div className="flex items-center gap-3">
@@ -102,17 +103,21 @@ export default function Loader({ onComplete, minDuration = 4000 }: LoaderProps) 
                     <div
                         className="w-3 h-3 md:w-4 md:h-4 bg-[#00BCD4] mt-3"
                         style={{
-                            animation: phase >= 1 ? "pulse-scale 2s infinite ease-in-out" : "none"
+                            animation: phase >= 1 && phase < 3 ? "pulse-scale 2s infinite ease-in-out" : "none"
                         }}
                     />
                 </div>
             </div>
 
             {/* Loading Counter */}
-            {/* Position: Bottom-Right, 40px from edges */}
             <div
-                className="absolute bottom-10 right-10 flex items-end gap-2 text-[#1a1a1a] transition-opacity duration-500"
-                style={{ opacity: phase >= 2 ? 1 : 0 }} // Fade in counter slightly later or just have it visible? User said "Phase 1: Logo fades in... Phase 2: Counter animates". Implicitly counter appears or starts counting. I'll let it be visible but 0000.
+                className="absolute bottom-10 right-10 flex items-end gap-2 text-[#1a1a1a] transition-all duration-[1000ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
+                style={{
+                    opacity: phase === 3 ? 0 : (phase >= 2 ? 1 : 0),
+                    transform: phase === 3
+                        ? "translateY(-100px)" // Moves up significantly at 100%
+                        : "translateY(0)"
+                }}
             >
                 <span className="text-sm md:text-base font-light tracking-widest text-[#666666]">
                     LOADING

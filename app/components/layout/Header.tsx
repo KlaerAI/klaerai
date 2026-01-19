@@ -29,14 +29,7 @@ export function Header() {
 
   // Scroll spy to detect which section is in view
   useEffect(() => {
-    const sections = [
-      "vision",
-      "problem",
-      "services",
-      "about",
-      "founder",
-      "contact",
-    ];
+    const sections = ["vision", "problem", "services", "about", "founder"];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200; // Offset for header height
@@ -66,7 +59,8 @@ export function Header() {
   useEffect(() => {
     if (hovering) {
       setExpanded(true);
-      pillWidth.set(480);
+      setExpanded(true);
+      pillWidth.set(340);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
@@ -75,123 +69,18 @@ export function Header() {
         setExpanded(false);
         pillWidth.set(160);
       }, 600);
-    }
+    } // ... existing code ...
 
     return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
+      // ...
     };
   }, [hovering, pillWidth]);
 
-  const handleMouseEnter = () => setHovering(true);
-  const handleMouseLeave = () => setHovering(false);
-
-  const handleSectionClick = (sectionId: string) => {
-    setActiveSection(sectionId);
-    setHovering(false);
-  };
-
-  // Get display label for active section
-  const getActiveLabel = () => {
-    const item = NAV_ITEMS.find((item) => item.id === activeSection);
-    if (item) return item.label;
-    // Handle sections not in nav
-    if (activeSection === "founder") return "About";
-    if (activeSection === "contact") return "Contact";
-    return "Vision";
-  };
-
-  return (
-    <>
-      {/* Desktop Navigation - Centered 3D Pill */}
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
-        <motion.nav
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="relative rounded-full"
-          style={{
-            width: pillWidth,
-            height: "56px",
-            background: `linear-gradient(135deg, 
-              rgba(10, 10, 10, 0.95) 0%, 
-              rgba(20, 20, 20, 0.9) 50%, 
-              rgba(15, 15, 15, 0.95) 100%
-            )`,
-            backdropFilter: "blur(20px)",
-            boxShadow: expanded
-              ? `
-                0 4px 20px rgba(0, 188, 212, 0.15),
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
-              `
-              : `
-                0 4px 16px rgba(0, 0, 0, 0.3),
-                0 2px 8px rgba(0, 188, 212, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
-              `,
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            overflow: "hidden",
-            transition: "box-shadow 0.3s ease-out",
-          }}
-        >
-          {/* Top edge highlight */}
-          <div
-            className="absolute inset-x-0 top-0 rounded-t-full pointer-events-none"
-            style={{
-              height: "1px",
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 80%, transparent 100%)",
-            }}
-          />
-
-          {/* Cyan accent glow */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none opacity-30"
-            style={{
-              background:
-                "radial-gradient(ellipse at center top, rgba(0, 188, 212, 0.15) 0%, transparent 60%)",
-            }}
-          />
-
-          {/* Navigation content */}
-          <div className="relative z-10 h-full flex items-center justify-center px-6">
-            {/* Collapsed state */}
-            {!expanded && (
-              <div className="flex items-center gap-3">
-                <a
-                  href="#vision"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .querySelector("#vision")
-                      ?.scrollIntoView({behavior: "smooth"});
-                    setActiveSection("vision");
-                  }}
-                  className="text-[var(--accent-cyan)] font-bold text-sm"
-                >
-                  DC
-                </a>
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={activeSection}
-                    initial={{opacity: 0, y: 8}}
-                    animate={{opacity: 1, y: 0}}
-                    exit={{opacity: 0, y: -8}}
-                    transition={{duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
-                    className="text-white font-medium text-sm tracking-wide"
-                  >
-                    {getActiveLabel()}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            )}
+  // ... existing code ...
 
             {/* Expanded state */}
             {expanded && (
-              <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-3 w-full justify-start pl-2">
                 <a
                   href="#vision"
                   onClick={(e) => {
@@ -238,22 +127,6 @@ export function Header() {
                     );
                   })}
                 </div>
-                <motion.a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .querySelector("#contact")
-                      ?.scrollIntoView({behavior: "smooth"});
-                    setActiveSection("contact");
-                  }}
-                  initial={{opacity: 0, scale: 0.9}}
-                  animate={{opacity: 1, scale: 1}}
-                  transition={{delay: 0.2}}
-                  className="ml-3 px-5 py-2 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 transition-transform whitespace-nowrap"
-                >
-                  Let's Talk
-                </motion.a>
               </div>
             )}
           </div>
@@ -304,16 +177,6 @@ export function Header() {
                   {item.label}
                 </motion.a>
               ))}
-              <motion.a
-                href="#contact"
-                initial={{opacity: 0, y: 20}}
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: 0.4}}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-6 px-8 py-4 rounded-full bg-white text-black font-bold text-lg"
-              >
-                Let's Talk
-              </motion.a>
             </nav>
           </motion.div>
         )}

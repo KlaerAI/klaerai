@@ -2,6 +2,7 @@
 
 import React, {useRef} from "react";
 import {motion, useInView} from "framer-motion";
+import Image from "next/image";
 
 // Founder data for both people
 const founders = [
@@ -11,12 +12,15 @@ const founders = [
     linkedin: "https://www.linkedin.com/in/md-mobasshir-shakil-khan-8ba835326",
     tagline:
       "Talent is universal. Opportunity is not. We built this to bridge the gap.",
+    image: "/Mobasshir.jpg",
   },
   {
     name: "Ayush Kumar",
     title: "Co-Founder",
     linkedin: "https://linkedin.com/in/ayushnotkumar",
-    tagline: "Technology should empower everyone. We're making that a reality.",
+    tagline:
+      "Talent is universal. Opportunity is not. We built this to bridge the gap.",
+    image: "/Ayush.jpg",
   },
 ];
 
@@ -69,28 +73,17 @@ function FounderSection({
             className="w-full lg:w-5/12"
           >
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl group cursor-pointer">
-              {/* Placeholder Image with grain effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-400 grain-filter transition-all duration-300 group-hover:blur-sm group-hover:scale-105">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg
-                    className="w-24 h-24 text-gray-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </div>
-              </div>
+              <Image
+                src={founder.image}
+                alt={founder.name}
+                fill
+                className="object-cover transition-all duration-500 group-hover:scale-105"
+                unoptimized
+              />
 
-              {/* Overlay grain texture */}
+              {/* Grain Overlay */}
               <div
-                className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none transition-all duration-300 group-hover:blur-sm"
+                className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none transition-all duration-300 group-hover:opacity-10"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 }}

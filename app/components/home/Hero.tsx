@@ -43,42 +43,7 @@ export function Hero() {
           <h1 className="text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] leading-[0.95] font-light tracking-[-0.03em] mb-8 md:mb-12">
             <span className="block text-white">One Campus.</span>
             <span className="font-bold text-white">Infinite </span>
-            <span className="relative inline-block">
-              <span className="font-bold text-white">Opportunities</span>
-              {/* Animated Hand-drawn SVG circle - positioned around text without overlapping */}
-              <span className="absolute -left-4 -right-4 -bottom-3 -top-2 md:-left-6 md:-right-6 md:-bottom-4 md:-top-3 pointer-events-none">
-                <svg
-                  className="w-full h-full overflow-visible"
-                  viewBox="0 0 100 40"
-                  fill="none"
-                  preserveAspectRatio="none"
-                >
-                  {/* Hand-drawn style path - irregular curves that don't cross through text */}
-                  <motion.path
-                    d="M 5 20 
-                       C 5 8, 25 2, 50 3 
-                       C 75 4, 98 10, 97 20 
-                       C 96 30, 75 38, 50 37 
-                       C 25 36, 3 32, 5 20"
-                    stroke="var(--accent-cyan)"
-                    strokeWidth="0.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    initial={{pathLength: 0, opacity: 0}}
-                    animate={{pathLength: 1, opacity: 1}}
-                    transition={{
-                      pathLength: {
-                        duration: 1.2,
-                        delay: 1.2,
-                        ease: [0.65, 0, 0.35, 1],
-                      },
-                      opacity: {duration: 0.2, delay: 1.2},
-                    }}
-                  />
-                </svg>
-              </span>
-            </span>
+            <span className="font-bold text-white">Opportunities</span>
             <span className="text-[var(--accent-cyan)]">.</span>
           </h1>
 

@@ -163,6 +163,13 @@ export function Header() {
               <div className="flex items-center gap-3">
                 <a
                   href="#vision"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .querySelector("#vision")
+                      ?.scrollIntoView({behavior: "smooth"});
+                    setActiveSection("vision");
+                  }}
                   className="text-[var(--accent-cyan)] font-bold text-sm"
                 >
                   DC
@@ -187,6 +194,13 @@ export function Header() {
               <div className="flex items-center justify-between w-full">
                 <a
                   href="#vision"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .querySelector("#vision")
+                      ?.scrollIntoView({behavior: "smooth"});
+                    setActiveSection("vision");
+                  }}
                   className="text-[var(--accent-cyan)] font-bold text-sm mr-4"
                 >
                   DC
@@ -205,7 +219,14 @@ export function Header() {
                           duration: 0.2,
                           ease: "easeOut",
                         }}
-                        onClick={() => handleSectionClick(item.id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const element = document.querySelector(item.href);
+                          if (element) {
+                            element.scrollIntoView({behavior: "smooth"});
+                            setActiveSection(item.id);
+                          }
+                        }}
                         className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                           isActive
                             ? "text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
@@ -219,6 +240,13 @@ export function Header() {
                 </div>
                 <motion.a
                   href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .querySelector("#contact")
+                      ?.scrollIntoView({behavior: "smooth"});
+                    setActiveSection("contact");
+                  }}
                   initial={{opacity: 0, scale: 0.9}}
                   animate={{opacity: 1, scale: 1}}
                   transition={{delay: 0.2}}

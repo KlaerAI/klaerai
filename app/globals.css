@@ -1,21 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  /* PRD: Color System Tokens */
-  --black-primary: #0A0A0A;
-  --navy-dark: #0F172A;
-  --white-primary: #FFFFFF;
-  --accent-cyan: #00BCD4;
-  --gray-text: #94A3B8;
-  /* Slate-400 for better readability on dark */
+  /* PRD: Complete Color System Tokens */
+  --black-primary: #0a0a0a;
+  --navy-dark: #0f172a;
+  --white-primary: #ffffff;
+  --accent-cyan: #00bcd4;
+  --gray-body: #9ca3af;
+  --gray-text: #94a3b8;
   --gray-border: #333333;
+  --glass-bg: rgba(10, 10, 10, 0.8);
+  --error-red: #ef4444;
 
   /* Fonts */
+  --font-inter: "Inter", sans-serif;
   --font-rubik: "Rubik", sans-serif;
+  --font-playfair: "Playfair Display", serif;
 
   /* Semantic mappings */
   --background: var(--black-primary);
   --foreground: var(--white-primary);
+
+  /* Premium Animation Curve */
+  --premium-ease: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @theme inline {
@@ -27,11 +34,19 @@
   --color-navy-dark: var(--navy-dark);
   --color-white-primary: var(--white-primary);
   --color-accent-cyan: var(--accent-cyan);
+  --color-gray-body: var(--gray-body);
   --color-gray-text: var(--gray-text);
   --color-gray-border: var(--gray-border);
+  --color-glass-bg: var(--glass-bg);
 
-  --font-sans: var(--font-rubik), var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-sans: var(--font-inter), var(--font-rubik), ui-sans-serif, system-ui;
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -42,23 +57,86 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animations */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-border) var(--black-primary);
+}
+
+/* Aurora Animation */
 @keyframes aurora {
   0% {
-    background-position: 50% 50%, 50% 50%;
+    background-position:
+      50% 50%,
+      50% 50%;
   }
-
   50% {
-    background-position: 100% 0%, 0% 100%;
+    background-position:
+      100% 0%,
+      0% 100%;
   }
-
   100% {
-    background-position: 50% 50%, 50% 50%;
+    background-position:
+      50% 50%,
+      50% 50%;
   }
 }
 
 .animate-aurora {
   animation: aurora 20s infinite ease-in-out alternate;
+}
+
+/* Slow Spin for Flywheel */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+/* Edge Glow Effect */
+.edge-glow-cyan {
+  box-shadow:
+    inset 0 0 100px rgba(0, 188, 212, 0.1),
+    0 0 40px rgba(0, 188, 212, 0.05);
+}
+
+/* Scroll Reveal Base */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s var(--premium-ease),
+    transform 0.8s var(--premium-ease);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Utilities */
@@ -69,4 +147,49 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Font Feature Settings */
+.tabular-nums {
+  font-feature-settings: "tnum";
+}
+
+/* Premium Hover Transition */
+.premium-transition {
+  transition: all 0.3s var(--premium-ease);
+}
+
+/* Glass Effect */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Cyan Glow Border */
+.cyan-glow-border {
+  box-shadow:
+    0 0 20px rgba(0, 188, 212, 0.25),
+    0 0 40px rgba(0, 188, 212, 0.1);
+}
+
+/* Text Stroke Utility */
+.text-stroke-white {
+  -webkit-text-stroke: 1.5px white;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grain Filter for images */
+.grain-filter {
+  filter: grayscale(100%) contrast(1.2);
+}
+
+.grain-filter::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }

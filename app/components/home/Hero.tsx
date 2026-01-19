@@ -1,9 +1,15 @@
 "use client";
 
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import dynamic from "next/dynamic";
-import {ArrowDown} from "lucide-react";
-import {motion, useScroll, useTransform, useSpring} from "framer-motion";
+import {ArrowDown, X, Copy, Check, Mail} from "lucide-react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 
 // Dynamic import to avoid SSR issues with Three.js
 const ParticleBackground = dynamic(
@@ -13,6 +19,7 @@ const ParticleBackground = dynamic(
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {scrollYProgress} = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -31,6 +38,13 @@ export function Hero() {
   // Content animations
   const contentOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
   const contentY = useTransform(smoothProgress, [0, 0.5], [0, 100]);
+
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({behavior: "smooth"});
+    }
+  };
 
   return (
     <section
@@ -73,14 +87,18 @@ export function Hero() {
             <motion.button
               whileHover={{scale: 1.05}}
               whileTap={{scale: 0.98}}
+              onClick={scrollToServices}
               className="group px-8 md:px-10 py-4 md:py-5 rounded-full border-2 border-white text-white font-semibold text-base md:text-lg tracking-wide flex items-center gap-3 hover:bg-white hover:text-black transition-all duration-300"
             >
-              EXPLORE ECOSYSTEM
+              Know our services!
               <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
             </motion.button>
 
             {/* Secondary CTA - Text Link */}
-            <button className="px-4 py-3 text-base md:text-lg text-white/80 font-medium relative group">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-3 text-base md:text-lg text-white/80 font-medium relative group"
+            >
               Partner with Us
               <span className="absolute bottom-2 left-4 right-4 h-[1px] bg-[var(--accent-cyan)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
             </button>
@@ -103,6 +121,106 @@ export function Hero() {
           <motion.div className="w-1 h-2 bg-white/60 rounded-full" />
         </motion.div>
       </motion.div>
+
+      {/* Partner Modal */}
+      <AnimatePresence>
+        {isModalOpen && <PartnerModal onClose={() => setIsModalOpen(false)} />}
+      </AnimatePresence>
     </section>
+  );
+}
+
+function PartnerModal({onClose}: {onClose: () => void}) {
+  const emails = ["ayushkumar85385@gmail.com", "mobasshirkhan9931@gmail.com"];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+      {/* Backdrop */}
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0}}
+        onClick={onClose}
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      />
+
+      {/* Modal Content */}
+      <motion.div
+        initial={{scale: 0.95, opacity: 0, y: 20}}
+        animate={{scale: 1, opacity: 1, y: 0}}
+        exit={{scale: 0.95, opacity: 0, y: 20}}
+        className="relative bg-[#111] border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+
+        <div className="mb-6">
+          <div className="w-12 h-12 rounded-full bg-[var(--accent-cyan)]/10 flex items-center justify-center mb-4">
+            <Mail className="w-6 h-6 text-[var(--accent-cyan)]" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            Partner with Us
+          </h3>
+          <p className="text-white/60 leading-relaxed">
+            We're always looking for visionary partners. Reach out to discuss
+            how we can build the future of campus connection together.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {emails.map((email) => (
+            <EmailRow key={email} email={email} />
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function EmailRow({email}: {email: string}) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="bg-white/5 rounded-xl p-3 flex items-center justify-between border border-white/5 group hover:border-white/10 transition-colors">
+      <div className="flex flex-col min-w-0 pr-2">
+        <span className="text-xs text-white/40 uppercase tracking-wider mb-0.5">
+          Email
+        </span>
+        <code className="text-[var(--accent-cyan)] font-mono text-xs sm:text-sm break-all">
+          {email}
+        </code>
+      </div>
+
+      <div className="flex items-center gap-2 shrink-0">
+        <button
+          onClick={handleCopy}
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors relative text-white/40 hover:text-white"
+          title="Copy email"
+        >
+          {copied ? (
+            <Check className="w-4 h-4 text-green-400" />
+          ) : (
+            <Copy className="w-4 h-4" />
+          )}
+        </button>
+        <a
+          href={`mailto:${email}`}
+          className="p-2 hover:bg-[var(--accent-cyan)] hover:text-black rounded-lg transition-colors text-white/40"
+          title="Open mail client"
+        >
+          <Mail className="w-4 h-4" />
+        </a>
+      </div>
+    </div>
   );
 }

@@ -48,8 +48,8 @@ const DYNAMIC_WORDS = ["Develop", "Design", "Elevate"];
 // --- Animation Constants (Strict from Prompt) ---
 const ACCENT_COLOR = "#00CED1";
 const ACCENT_GLOW = "0 0 10px rgba(0, 206, 209, 0.5)";
-const SPRING_EASE = [0.34, 1.56, 0.64, 1]; // Springy bounce for numbers
-const SMOOTH_EASE = [0.25, 0.46, 0.45, 0.94]; // Smooth ease for others
+const SPRING_EASE: [number, number, number, number] = [0.34, 1.56, 0.64, 1]; // Springy bounce for numbers
+const SMOOTH_EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]; // Smooth ease for others
 
 // Sequence Timings (ms converted to seconds)
 const TIME_BORDER = 0;

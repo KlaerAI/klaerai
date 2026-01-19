@@ -117,7 +117,8 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black text-white cursor-wait font-rubik select-none"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white text-black cursor-wait select-none"
+      style={{fontFamily: "var(--font-rubik), Rubik, sans-serif"}}
     >
       {/* 
         LOGO CENTER 
@@ -125,11 +126,11 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         SAV: Bold, White
         1N: Transparent, White Stroke
       */}
-      <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[12vw] md:text-[8rem] leading-none tracking-tighter">
-        <span className="font-bold text-white">SAV</span>
+      <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[14vw] md:text-[10rem] leading-none tracking-tighter">
+        <span className="font-bold text-black">SAV</span>
         <span
-          className="font-medium text-transparent ml-[0.05em]"
-          style={{WebkitTextStroke: "1px white"}}
+          className="font-medium text-transparent ml-[0.02em]"
+          style={{WebkitTextStroke: "2px black"}}
         >
           1N
         </span>
@@ -141,7 +142,7 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         "LOADING" text
         Counter digits
       */}
-      <div className="absolute bottom-6 right-6 md:bottom-12 md:right-16 flex items-end gap-3 md:gap-4 text-white">
+      <div className="absolute bottom-8 right-8 md:bottom-12 md:right-16 flex items-end gap-3 md:gap-4 text-black">
         <span className="text-xs md:text-sm font-bold italic tracking-widest mb-1.5 md:mb-2 opacity-80">
           LOADING
         </span>

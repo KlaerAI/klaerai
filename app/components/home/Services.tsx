@@ -84,11 +84,10 @@ export function Services() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           {/* Sticky Headline */}
-          {/* Sticky Headline */}
-          <div className="lg:w-[45%] lg:sticky lg:top-40 lg:self-start z-10">
+          <div className="lg:w-[40%] lg:sticky lg:top-40 lg:self-start z-10">
             <div ref={headlineRef}>
               <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold leading-[0.9] tracking-tight text-white flex flex-col items-start">
-                <div className="overflow-hidden mb-2">
+                <div className="overflow-hidden mb-2 pb-4">
                   <motion.span
                     initial={{ y: "100%" }}
                     animate={headlineInView ? { y: 0 } : { y: "100%" }}
@@ -131,7 +130,7 @@ export function Services() {
           </div>
 
           {/* Services Grid */}
-          <div className="lg:w-[55%] grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-16">
+          <div className="lg:w-[60%] grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-16">
             {SERVICES.map((item, index) => (
               <ServiceCard key={item.id} item={item} index={index} />
             ))}

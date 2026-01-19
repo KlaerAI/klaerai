@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, {useRef} from "react";
+import {motion, useInView} from "framer-motion";
 
 // --- Data (Condensed) ---
 const PROBLEMS = [
@@ -28,7 +28,7 @@ const REVEAL_EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 export function Problem() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, {once: true, margin: "-100px"});
 
   return (
     <section
@@ -37,15 +37,14 @@ export function Problem() {
       className="relative bg-white text-black py-24 md:py-32 lg:py-40"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-
         {/* Header Section */}
         <div className="mb-16 md:mb-24">
           <div className="overflow-hidden">
             <motion.h2
-              initial={{ y: "100%" }}
-              animate={isInView ? { y: 0 } : { y: "100%" }}
-              transition={{ duration: 0.8, ease: REVEAL_EASE }}
-              className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-[0.95] tracking-tight"
+              initial={{y: "100%"}}
+              animate={isInView ? {y: 0} : {y: "100%"}}
+              transition={{duration: 0.8, ease: REVEAL_EASE}}
+              className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-tight tracking-tight pb-4"
             >
               The Campus Experience <br className="hidden md:block" />
               is <span className="text-[var(--accent-cyan)]">Fragmented</span>.
@@ -58,11 +57,11 @@ export function Problem() {
           {PROBLEMS.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={{opacity: 0, y: 20}}
+              animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
               transition={{
                 duration: 0.6,
-                delay: 0.2 + (i * 0.1),
+                delay: 0.2 + i * 0.1,
                 ease: REVEAL_EASE,
               }}
               className="group relative p-8 md:p-10 min-h-[280px] md:min-h-[320px] flex flex-col justify-between cursor-default border-t border-l border-black/10 first:border-l-0 md:first:border-l lg:first:border-l-0 hover:bg-black hover:text-white transition-all duration-500"

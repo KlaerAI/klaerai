@@ -45,19 +45,20 @@ const SERVICES = [
 
 const DYNAMIC_WORDS = ["Develop", "Design", "Elevate"];
 
-// --- Animation Constants (Strict from Prompt) ---
+// --- Animation Constants ---
 const ACCENT_COLOR = "#00CED1";
-const ACCENT_GLOW = "0 0 10px rgba(0, 206, 209, 0.5)";
-const SPRING_EASE: [number, number, number, number] = [0.34, 1.56, 0.64, 1]; // Springy bounce for numbers
-const SMOOTH_EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]; // Smooth ease for others
+const ACCENT_GLOW = "0 0 10px rgba(0, 206, 209, 0.4)";
 
-// Sequence Timings (ms converted to seconds)
-const TIME_BORDER = 0;
-const TIME_NUMBER = 0.05;
-const TIME_TITLE = 0.2;
-const TIME_DESC = 0.4;
-const TIME_BULLETS_START = 0.55;
-const BULLET_STAGGER = 0.075;
+// "Sav1n" style sharp easings
+const REVEAL_EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+const SPRING_EASE: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
+
+// Stagger timings
+const DELAY_BORDER = 0;
+const DELAY_NUMBER = 0.1;
+const DELAY_TITLE = 0.25;
+const DELAY_DESC = 0.4;
+const DELAY_BULLETS = 0.6;
 
 export function Services() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -65,12 +66,12 @@ export function Services() {
   const headlineInView = useInView(headlineRef, { once: true, margin: "-100px" });
   const [wordIndex, setWordIndex] = useState(0);
 
-  // Rotating Word Cycle
+  // Cycle Dynamic Word
   useEffect(() => {
     if (!headlineInView) return;
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % DYNAMIC_WORDS.length);
-    }, 2500);
+    }, 2000); // 2s cycle for snappier feel
     return () => clearInterval(interval);
   }, [headlineInView]);
 
@@ -82,33 +83,48 @@ export function Services() {
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          {/* Sticky Headline Section */}
+          {/* Sticky Headline */}
           <div className="lg:w-[35%] lg:sticky lg:top-40 lg:self-start z-10">
             <div ref={headlineRef}>
               <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold leading-[0.9] tracking-tight text-white flex flex-col items-start">
-                <span className="block mb-2">I&apos;ll Help</span>
+                <div className="overflow-hidden mb-2">
+                  <motion.span
+                    initial={{ y: "100%" }}
+                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
+                    transition={{ duration: 0.8, ease: REVEAL_EASE }}
+                    className="block"
+                  >
+                    I&apos;ll Help
+                  </motion.span>
+                </div>
 
-                {/* Rotating Word */}
-                <span className="block h-[1.1em] relative overflow-visible mb-2 min-w-[300px]">
-                  <AnimatePresence mode="wait">
+                {/* Vertical Slide Dynamic Word */}
+                <div className="h-[1.1em] overflow-hidden mb-2 relative min-w-[300px]">
+                  <AnimatePresence mode="popLayout">
                     <motion.span
                       key={wordIndex}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, position: "absolute" }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                      className="block origin-left"
-                      style={{
-                        color: ACCENT_COLOR,
-                        textShadow: ACCENT_GLOW
-                      }}
+                      initial={{ y: "100%" }} // Slide in from bottom
+                      animate={{ y: 0 }}
+                      exit={{ y: "-100%" }} // Slide out to top
+                      transition={{ duration: 0.6, ease: REVEAL_EASE }}
+                      className="block text-[#00CED1] origin-left"
+                      style={{ textShadow: ACCENT_GLOW }}
                     >
                       {DYNAMIC_WORDS[wordIndex]}
                     </motion.span>
                   </AnimatePresence>
-                </span>
+                </div>
 
-                <span className="block">Your Brand</span>
+                <div className="overflow-hidden">
+                  <motion.span
+                    initial={{ y: "100%" }}
+                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
+                    transition={{ duration: 0.8, ease: REVEAL_EASE, delay: 0.15 }}
+                    className="block"
+                  >
+                    Your Brand
+                  </motion.span>
+                </div>
               </h2>
             </div>
           </div>
@@ -125,52 +141,45 @@ export function Services() {
   );
 }
 
-function ServiceCard({
-  item,
-  index,
-}: {
-  item: (typeof SERVICES)[0];
-  index: number;
-}) {
+function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-10%" });
 
-  // Stagger delays based on card index (150ms between cards)
-  const cardDelay = index * 0.15;
+  // Stagger cascading based on index
+  const baseDelay = index * 0.15;
 
   return (
     <div
       ref={cardRef}
       className="group relative flex flex-col min-h-[350px] pl-8 md:pl-10 pt-4"
     >
-      {/* 2. Left Vertical Border Animation (Starting T=0) */}
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] h-full overflow-visible pointer-events-none">
+      {/* 1. Left Vertical Border (Draw Top->Bottom) */}
+      <div className="absolute left-0 top-0 bottom-0 w-[4px] h-full overflow-visible pointer-events-none">
         <svg className="h-full w-full overflow-visible">
-          {/* Draw from top to bottom */}
           <motion.line
-            x1="0" y1="0" x2="0" y2="150" // ~150px height as requested
-            stroke="rgba(255,255,255,0.2)"
-            strokeWidth="3"
+            x1="0" y1="0" x2="0" y2="100%"
+            stroke="rgba(255,255,255,0.15)"
+            strokeWidth="4"
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
             transition={{
-              duration: 0.8,
+              duration: 1,
               ease: "easeOut",
-              delay: cardDelay + TIME_BORDER
+              delay: baseDelay + DELAY_BORDER
             }}
           />
         </svg>
       </div>
 
-      {/* 3. Number Entrance (Starting T=50ms) */}
-      <div className="mb-4 relative">
+      {/* 2. Number (Scale/Slide Up) */}
+      <div className="mb-4 relative overflow-hidden">
         <motion.span
-          initial={{ opacity: 0, y: -50, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -50, scale: 0.8 }}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }}
           transition={{
-            duration: 0.6,
-            ease: SPRING_EASE, // Springy bounce
-            delay: cardDelay + TIME_NUMBER
+            duration: 0.7,
+            ease: SPRING_EASE,
+            delay: baseDelay + DELAY_NUMBER
           }}
           className="block text-[4rem] font-bold text-white/10 leading-none tracking-tighter tabular-nums"
         >
@@ -178,50 +187,47 @@ function ServiceCard({
         </motion.span>
       </div>
 
-      {/* 4. Title Text (Starting T=200ms) */}
-      <h3 className="text-2xl md:text-3xl font-semibold leading-tight mb-4 text-white">
-        {item.title.split(" ").map((word, i) => {
-          const isAccent = word.toLowerCase().includes(item.accentWord.toLowerCase());
-          return (
-            <span key={i} className="inline-block mr-2">
-              {isAccent ? (
-                <motion.span
-                  initial={{ color: "#ffffff", textShadow: "none" }}
-                  animate={isInView ? {
-                    color: ACCENT_COLOR,
-                    textShadow: ACCENT_GLOW
-                  } : {}}
-                  transition={{
-                    duration: 0.6,
-                    delay: cardDelay + TIME_TITLE,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ) : (
-                word // Standard white text
-              )}
-            </span>
-          );
-        })}
+      {/* 3. Title (Masked Slide Up + Color Shift) */}
+      <h3 className="text-2xl md:text-3xl font-semibold leading-tight mb-4 text-white overflow-hidden">
+        <span className="block overflow-hidden">
+          <motion.span
+            className="block"
+            initial={{ y: "100%" }}
+            animate={isInView ? { y: 0 } : { y: "100%" }}
+            transition={{ duration: 0.6, ease: REVEAL_EASE, delay: baseDelay + DELAY_TITLE }}
+          >
+            {item.title.split(" ").map((word, i) => {
+              const isAccent = word.toLowerCase().includes(item.accentWord.toLowerCase());
+              return (
+                <span key={i} className="inline-block mr-2 relative">
+                  {/* Base geometry is visible, but we layer color on top or just switch it */}
+                  {isAccent ? (
+                    <motion.span
+                      initial={{ color: "#ffffff", textShadow: "none" }}
+                      animate={isInView ? { color: ACCENT_COLOR, textShadow: ACCENT_GLOW } : {}}
+                      // Color transition happens slightly after geometry reveal
+                      transition={{ duration: 0.4, delay: baseDelay + DELAY_TITLE + 0.3 }}
+                    >
+                      {word}
+                    </motion.span>
+                  ) : word}
+                </span>
+              );
+            })}
+          </motion.span>
+        </span>
       </h3>
 
-      {/* 5. Description Text (Starting T=400ms) */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{
-          duration: 0.5,
-          delay: cardDelay + TIME_DESC,
-          ease: "easeInOut"
-        }}
-        className="text-white/60 text-base md:text-lg leading-relaxed mix-blend-plus-lighter mb-8"
-      >
-        {item.desc}
-      </motion.p>
+      {/* 4. Description (Word-by-Word Slide Up) */}
+      <div className="text-white/60 text-base md:text-lg leading-relaxed mix-blend-plus-lighter mb-8">
+        <WordReveal
+          text={item.desc}
+          pDelay={baseDelay + DELAY_DESC}
+          isInView={isInView}
+        />
+      </div>
 
-      {/* 6. Bullets (Starting T=550ms, Staggered) */}
+      {/* 5. Bullets (Slide In) */}
       <ul className="mt-auto space-y-3">
         {item.features.map((feature, i) => (
           <motion.li
@@ -230,8 +236,8 @@ function ServiceCard({
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             transition={{
               duration: 0.4,
-              delay: cardDelay + TIME_BULLETS_START + (i * BULLET_STAGGER),
-              ease: SMOOTH_EASE,
+              delay: baseDelay + DELAY_BULLETS + (i * 0.08),
+              ease: "easeOut",
             }}
             className="flex items-center gap-3 text-sm text-white/40"
           >
@@ -244,5 +250,30 @@ function ServiceCard({
         ))}
       </ul>
     </div>
+  );
+}
+
+// Word Reveal Component to mimic "SplitText Lines"
+function WordReveal({ text, pDelay, isInView }: { text: string, pDelay: number, isInView: boolean }) {
+  const words = text.split(" ");
+  return (
+    <span className="block flex flex-wrap gap-x-1.5">
+      {words.map((word, i) => (
+        <span key={i} className="block overflow-hidden">
+          <motion.span
+            className="block"
+            initial={{ y: "110%" }} // Start deeply hidden
+            animate={isInView ? { y: 0 } : { y: "110%" }}
+            transition={{
+              duration: 0.5,
+              ease: [0.25, 0.1, 0.25, 1],
+              delay: pDelay + (i * 0.015) // Extremely tight stagger for "flow"
+            }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </span>
   );
 }

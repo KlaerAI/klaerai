@@ -4,45 +4,45 @@ import React, {useRef, useState, useEffect} from "react";
 import {motion, useInView, AnimatePresence} from "framer-motion";
 
 // --- Data ---
+
 const SERVICES = [
   {
     id: "01",
-    title: "Built for conversion",
-    accentWord: "conversion",
-    desc: "AI-powered academic support engineered from the ground up. Every interaction has a purpose.",
-    features: ["24/7 AI Tutoring", "Smart Study Plans", "Exam Prep Assistant"],
+    title: "Intelligence over Information",
+    accentWord: "Intelligence",
+    desc: "Transforming scattered, uncivilized notes into an AI-powered neural network for your brain.",
+    features: ["AI Document Synthesis", "Semantic Search", "Auto-Revision Engine"],
   },
   {
     id: "02",
-    title: "Designed to be understood",
-    accentWord: "understood",
-    desc: "Students shouldn't have to think. Clear flows, obvious CTAs, seamless experience.",
-    features: ["Event Discovery", "Team Formation", "Portfolio Builder"],
+    title: "Exposure without Barriers",
+    accentWord: "Exposure",
+    desc: "A unified infrastructure for technical and non-technical events that bridge the institutional gap.",
+    features: ["Native Event Hosting", "Unified Discovery Hub", "Portfolio Continuity"],
   },
   {
     id: "03",
-    title: "The brief is never complete",
-    accentWord: "complete",
-    desc: "Monetize your skills through verified campus marketplace opportunities.",
+    title: "Merit over Network",
+    accentWord: "Merit",
+    desc: "Connect with like-minded peers and collaborators based on verified skills, not social status.",
     features: [
-      "Verified Freelance Gigs",
-      "Skill-Based Matching",
-      "Secure Payments",
+      "Skill-Based Peer Matching",
+      "Native Forum Discourse",
+      "Authentic Endorsements",
     ],
   },
   {
     id: "04",
-    title: "Most websites are mediocre",
-    accentWord: "mediocre",
-    desc: "Merit-based networking that values skills over followers.",
+    title: "Skills into Currency",
+    accentWord: "Currency",
+    desc: "A streamlined marketplace engineered to connect student talent with verified freelance opportunities.",
     features: [
-      "Skill Endorsements",
-      "Project Collaboration",
-      "Mentor Matching",
+      "Verified Freelance Gigs",
+      "Skill-Matched Bidding",
+      "Secure On-Campus Payments",
     ],
   },
 ];
-
 const DYNAMIC_WORDS = ["Develop", "Design", "Elevate"];
 
 // --- Animation Constants ---

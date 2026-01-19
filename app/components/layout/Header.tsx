@@ -56,11 +56,11 @@ export function Header() {
   }, []);
 
   // Handle hover expansion
+  // Handle hover expansion
   useEffect(() => {
     if (hovering) {
       setExpanded(true);
-      setExpanded(true);
-      pillWidth.set(340);
+      pillWidth.set(380);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
@@ -69,14 +69,119 @@ export function Header() {
         setExpanded(false);
         pillWidth.set(160);
       }, 600);
-    } // ... existing code ...
+    }
 
     return () => {
-      // ...
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
     };
   }, [hovering, pillWidth]);
 
-  // ... existing code ...
+  const handleMouseEnter = () => setHovering(true);
+  const handleMouseLeave = () => setHovering(false);
+
+  const handleSectionClick = (sectionId: string) => {
+    setActiveSection(sectionId);
+    setHovering(false);
+  };
+
+  // Get display label for active section
+  const getActiveLabel = () => {
+    const item = NAV_ITEMS.find((item) => item.id === activeSection);
+    if (item) return item.label;
+    // Handle sections not in nav
+    if (activeSection === "founder") return "About";
+
+    return "Vision";
+  };
+
+  return (
+    <>
+      {/* Desktop Navigation - Centered 3D Pill */}
+      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
+        <motion.nav
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative rounded-full"
+          style={{
+            width: pillWidth,
+            height: "56px",
+            background: `linear-gradient(135deg, 
+              rgba(10, 10, 10, 0.95) 0%, 
+              rgba(20, 20, 20, 0.9) 50%, 
+              rgba(15, 15, 15, 0.95) 100%
+            )`,
+            backdropFilter: "blur(20px)",
+            boxShadow: expanded
+              ? `
+                0 4px 20px rgba(0, 188, 212, 0.15),
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+              `
+              : `
+                0 4px 16px rgba(0, 0, 0, 0.3),
+                0 2px 8px rgba(0, 188, 212, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+              `,
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            overflow: "hidden",
+            transition: "box-shadow 0.3s ease-out",
+          }}
+        >
+          {/* Top edge highlight */}
+          <div
+            className="absolute inset-x-0 top-0 rounded-t-full pointer-events-none"
+            style={{
+              height: "1px",
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 80%, transparent 100%)",
+            }}
+          />
+
+          {/* Cyan accent glow */}
+          <div
+            className="absolute inset-0 rounded-full pointer-events-none opacity-30"
+            style={{
+              background:
+                "radial-gradient(ellipse at center top, rgba(0, 188, 212, 0.15) 0%, transparent 60%)",
+            }}
+          />
+
+          {/* Navigation content */}
+          <div className="relative z-10 h-full flex items-center justify-center px-6">
+            {/* Collapsed state */}
+            {!expanded && (
+              <div className="flex items-center gap-3">
+                <a
+                  href="#vision"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .querySelector("#vision")
+                      ?.scrollIntoView({behavior: "smooth"});
+                    setActiveSection("vision");
+                  }}
+                  className="text-[var(--accent-cyan)] font-bold text-sm"
+                >
+                  DC
+                </a>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={activeSection}
+                    initial={{opacity: 0, y: 8}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: -8}}
+                    transition={{duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
+                    className="text-white font-medium text-sm tracking-wide"
+                  >
+                    {getActiveLabel()}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            )}
 
             {/* Expanded state */}
             {expanded && (

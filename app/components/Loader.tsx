@@ -23,8 +23,8 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
             ease: "power4.inOut",
             // Animate border-radius to create the "shrink into curves" effect
             // "grows till middle": Start 0, End 50% (or larger to make it flattened)
-            borderBottomLeftRadius: "50% 100px",
-            borderBottomRightRadius: "50% 100px",
+            borderBottomLeftRadius: "50% 150vh",
+            borderBottomRightRadius: "50% 150vh",
             onComplete: () => {
               setIsMounted(false);
               if (onComplete) onComplete();

@@ -3,13 +3,17 @@
 :root {
   /* PRD: Color System Tokens */
   --black-primary: #0A0A0A;
-  --navy-dark: #121B22;
+  --navy-dark: #0F172A;
   --white-primary: #FFFFFF;
-  --accent-cyan: #00C2D1;
-  --gray-text: #7A7A7A;
-  --gray-border: #2A2A2A;
+  --accent-cyan: #00BCD4;
+  --gray-text: #94A3B8;
+  /* Slate-400 for better readability on dark */
+  --gray-border: #333333;
 
-  /* Semantic mappings - Defaulting to Dark Mode aesthetic */
+  /* Fonts */
+  --font-rubik: "Rubik", sans-serif;
+
+  /* Semantic mappings */
   --background: var(--black-primary);
   --foreground: var(--white-primary);
 }
@@ -17,7 +21,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   /* Expose tokens as Tailwind colors */
   --color-black-primary: var(--black-primary);
   --color-navy-dark: var(--navy-dark);
@@ -26,22 +30,42 @@
   --color-gray-text: var(--gray-text);
   --color-gray-border: var(--gray-border);
 
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-rubik), var(--font-geist-sans), ui-sans-serif, system-ui;
   --font-mono: var(--font-geist-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utilities for scrollbar hiding if needed */
+/* Animations */
+@keyframes aurora {
+  0% {
+    background-position: 50% 50%, 50% 50%;
+  }
+
+  50% {
+    background-position: 100% 0%, 0% 100%;
+  }
+
+  100% {
+    background-position: 50% 50%, 50% 50%;
+  }
+}
+
+.animate-aurora {
+  animation: aurora 20s infinite ease-in-out alternate;
+}
+
+/* Utilities */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -3,7 +3,7 @@
 import React, {useRef} from "react";
 import dynamic from "next/dynamic";
 import {ArrowDown} from "lucide-react";
-import {motion, useScroll, useTransform} from "framer-motion";
+import {motion, useScroll, useTransform, useSpring} from "framer-motion";
 
 // Dynamic import to avoid SSR issues with Three.js
 const ParticleBackground = dynamic(
@@ -18,9 +18,19 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 150]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  // Use springs for smoother scroll-linked animations (prevents jitter)
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Smooth opacity and scale for background
+  const bgOpacity = useTransform(smoothProgress, [0, 0.6], [1, 0]);
+
+  // Content animations
+  const contentOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
+  const contentY = useTransform(smoothProgress, [0, 0.5], [0, 100]);
 
   return (
     <section
@@ -28,15 +38,18 @@ export function Hero() {
       ref={containerRef}
       className="relative h-screen w-full flex flex-col justify-center overflow-hidden bg-[var(--black-primary)] text-[var(--white-primary)]"
     >
-      {/* 3D Particle Background */}
-      <motion.div style={{opacity, scale}} className="absolute inset-0 z-0">
+      {/* 3D Particle Background - uses GPU-accelerated transform */}
+      <motion.div
+        style={{opacity: bgOpacity}}
+        className="absolute inset-0 z-0 will-change-transform"
+      >
         <ParticleBackground />
       </motion.div>
 
       {/* Content */}
       <motion.div
-        style={{opacity, y}}
-        className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full"
+        style={{opacity: contentOpacity, y: contentY}}
+        className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full will-change-transform"
       >
         <div className="max-w-5xl">
           {/* Main Headline */}

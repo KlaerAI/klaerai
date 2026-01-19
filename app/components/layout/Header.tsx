@@ -122,9 +122,12 @@ export function Header() {
             {/* Collapsed state */}
             {!expanded && (
               <div className="flex items-center gap-3">
-                <span className="text-[var(--accent-cyan)] font-bold text-sm">
+                <a
+                  href="#vision"
+                  className="text-[var(--accent-cyan)] font-bold text-sm"
+                >
                   DC
-                </span>
+                </a>
                 <AnimatePresence mode="wait">
                   {activeItem && (
                     <motion.span
@@ -145,12 +148,12 @@ export function Header() {
             {/* Expanded state */}
             {expanded && (
               <div className="flex items-center justify-between w-full">
-                <Link
-                  href="/"
+                <a
+                  href="#vision"
                   className="text-[var(--accent-cyan)] font-bold text-sm mr-4"
                 >
                   DC
-                </Link>
+                </a>
                 <div className="flex items-center gap-1">
                   {NAV_ITEMS.map((item, index) => {
                     const isActive = item.id === activeSection;

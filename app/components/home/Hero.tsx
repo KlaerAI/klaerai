@@ -41,7 +41,7 @@ export function Hero() {
       {/* 3D Particle Background - uses GPU-accelerated transform */}
       <motion.div
         style={{opacity: bgOpacity}}
-        className="absolute inset-0 z-0 will-change-transform"
+        className="absolute inset-0 md:left-[30%] z-0 will-change-transform"
       >
         <ParticleBackground />
       </motion.div>

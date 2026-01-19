@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import React, {useRef, useState, useEffect} from "react";
+import {motion, useInView, AnimatePresence} from "framer-motion";
 
 // --- Data ---
 const SERVICES = [
@@ -63,7 +63,7 @@ const DELAY_BULLETS = 0.6;
 export function Services() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
-  const headlineInView = useInView(headlineRef, { once: true, margin: "-100px" });
+  const headlineInView = useInView(headlineRef, {once: true, margin: "-100px"});
   const [wordIndex, setWordIndex] = useState(0);
 
   // Cycle Dynamic Word
@@ -71,7 +71,7 @@ export function Services() {
     if (!headlineInView) return;
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % DYNAMIC_WORDS.length);
-    }, 2000); // 2s cycle for snappier feel
+    }, 4000); // 4s cycle for slower feel
     return () => clearInterval(interval);
   }, [headlineInView]);
 
@@ -89,9 +89,9 @@ export function Services() {
               <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold leading-[0.9] tracking-tight text-white flex flex-col items-start">
                 <div className="overflow-hidden mb-2">
                   <motion.span
-                    initial={{ y: "100%" }}
-                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
-                    transition={{ duration: 0.8, ease: REVEAL_EASE }}
+                    initial={{y: "100%"}}
+                    animate={headlineInView ? {y: 0} : {y: "100%"}}
+                    transition={{duration: 0.8, ease: REVEAL_EASE}}
                     className="block"
                   >
                     I&apos;ll Help
@@ -103,12 +103,12 @@ export function Services() {
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       key={wordIndex}
-                      initial={{ y: "100%" }} // Slide in from bottom
-                      animate={{ y: 0 }}
-                      exit={{ y: "-100%" }} // Slide out to top
-                      transition={{ duration: 0.6, ease: REVEAL_EASE }}
+                      initial={{y: "120%", opacity: 0}} // Slide in from further down
+                      animate={{y: 0, opacity: 1}}
+                      exit={{y: "-120%", opacity: 0}} // Slide out further up
+                      transition={{duration: 0.8, ease: "easeInOut"}} // Smoother, standard easing
                       className="block text-[#00CED1] origin-left"
-                      style={{ textShadow: ACCENT_GLOW }}
+                      style={{textShadow: ACCENT_GLOW}}
                     >
                       {DYNAMIC_WORDS[wordIndex]}
                     </motion.span>
@@ -117,9 +117,9 @@ export function Services() {
 
                 <div className="overflow-hidden">
                   <motion.span
-                    initial={{ y: "100%" }}
-                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
-                    transition={{ duration: 0.8, ease: REVEAL_EASE, delay: 0.15 }}
+                    initial={{y: "100%"}}
+                    animate={headlineInView ? {y: 0} : {y: "100%"}}
+                    transition={{duration: 0.8, ease: REVEAL_EASE, delay: 0.15}}
                     className="block"
                   >
                     Your Brand
@@ -141,9 +141,15 @@ export function Services() {
   );
 }
 
-function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: number }) {
+function ServiceCard({
+  item,
+  index,
+}: {
+  item: (typeof SERVICES)[0];
+  index: number;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-10%" });
+  const isInView = useInView(cardRef, {once: true, margin: "-10%"});
 
   // Stagger cascading based on index
   const baseDelay = index * 0.15;
@@ -157,15 +163,18 @@ function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: numbe
       <div className="absolute left-0 top-0 bottom-0 w-[4px] h-full overflow-visible pointer-events-none">
         <svg className="h-full w-full overflow-visible">
           <motion.line
-            x1="0" y1="0" x2="0" y2="100%"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="100%"
             stroke="rgba(255,255,255,0.15)"
             strokeWidth="4"
-            initial={{ pathLength: 0 }}
-            animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
+            initial={{pathLength: 0}}
+            animate={isInView ? {pathLength: 1} : {pathLength: 0}}
             transition={{
               duration: 1,
               ease: "easeOut",
-              delay: baseDelay + DELAY_BORDER
+              delay: baseDelay + DELAY_BORDER,
             }}
           />
         </svg>
@@ -174,14 +183,14 @@ function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: numbe
       {/* 2. Number (Scale/Slide Up) */}
       <div className="mb-4 relative overflow-hidden">
         <motion.span
-          initial={{ y: "100%", opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }}
+          initial={{y: "100%", opacity: 0}}
+          animate={isInView ? {y: 0, opacity: 1} : {y: "100%", opacity: 0}}
           transition={{
             duration: 0.7,
             ease: SPRING_EASE,
-            delay: baseDelay + DELAY_NUMBER
+            delay: baseDelay + DELAY_NUMBER,
           }}
-          className="block text-[4rem] font-bold text-white/10 leading-none tracking-tighter tabular-nums"
+          className="block text-[4rem] font-bold text-[#00CED1]/80 leading-none tracking-tighter tabular-nums"
         >
           {item.id}
         </motion.span>
@@ -192,25 +201,40 @@ function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: numbe
         <span className="block overflow-hidden">
           <motion.span
             className="block"
-            initial={{ y: "100%" }}
-            animate={isInView ? { y: 0 } : { y: "100%" }}
-            transition={{ duration: 0.6, ease: REVEAL_EASE, delay: baseDelay + DELAY_TITLE }}
+            initial={{y: "100%"}}
+            animate={isInView ? {y: 0} : {y: "100%"}}
+            transition={{
+              duration: 0.6,
+              ease: REVEAL_EASE,
+              delay: baseDelay + DELAY_TITLE,
+            }}
           >
             {item.title.split(" ").map((word, i) => {
-              const isAccent = word.toLowerCase().includes(item.accentWord.toLowerCase());
+              const isAccent = word
+                .toLowerCase()
+                .includes(item.accentWord.toLowerCase());
               return (
                 <span key={i} className="inline-block mr-2 relative">
                   {/* Base geometry is visible, but we layer color on top or just switch it */}
                   {isAccent ? (
                     <motion.span
-                      initial={{ color: "#ffffff", textShadow: "none" }}
-                      animate={isInView ? { color: ACCENT_COLOR, textShadow: ACCENT_GLOW } : {}}
+                      initial={{color: "#ffffff", textShadow: "none"}}
+                      animate={
+                        isInView
+                          ? {color: ACCENT_COLOR, textShadow: ACCENT_GLOW}
+                          : {}
+                      }
                       // Color transition happens slightly after geometry reveal
-                      transition={{ duration: 0.4, delay: baseDelay + DELAY_TITLE + 0.3 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: baseDelay + DELAY_TITLE + 0.3,
+                      }}
                     >
                       {word}
                     </motion.span>
-                  ) : word}
+                  ) : (
+                    word
+                  )}
                 </span>
               );
             })}
@@ -232,18 +256,18 @@ function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: numbe
         {item.features.map((feature, i) => (
           <motion.li
             key={i}
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            initial={{opacity: 0, x: -20}}
+            animate={isInView ? {opacity: 1, x: 0} : {opacity: 0, x: -20}}
             transition={{
               duration: 0.4,
-              delay: baseDelay + DELAY_BULLETS + (i * 0.08),
+              delay: baseDelay + DELAY_BULLETS + i * 0.08,
               ease: "easeOut",
             }}
             className="flex items-center gap-3 text-sm text-white/40"
           >
             <span
               className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: ACCENT_COLOR }}
+              style={{backgroundColor: ACCENT_COLOR}}
             />
             {feature}
           </motion.li>
@@ -254,7 +278,15 @@ function ServiceCard({ item, index }: { item: (typeof SERVICES)[0]; index: numbe
 }
 
 // Word Reveal Component to mimic "SplitText Lines"
-function WordReveal({ text, pDelay, isInView }: { text: string, pDelay: number, isInView: boolean }) {
+function WordReveal({
+  text,
+  pDelay,
+  isInView,
+}: {
+  text: string;
+  pDelay: number;
+  isInView: boolean;
+}) {
   const words = text.split(" ");
   return (
     <span className="block flex flex-wrap gap-x-1.5">
@@ -262,12 +294,12 @@ function WordReveal({ text, pDelay, isInView }: { text: string, pDelay: number, 
         <span key={i} className="block overflow-hidden">
           <motion.span
             className="block"
-            initial={{ y: "110%" }} // Start deeply hidden
-            animate={isInView ? { y: 0 } : { y: "110%" }}
+            initial={{y: "110%"}} // Start deeply hidden
+            animate={isInView ? {y: 0} : {y: "110%"}}
             transition={{
               duration: 0.5,
               ease: [0.25, 0.1, 0.25, 1],
-              delay: pDelay + (i * 0.015) // Extremely tight stagger for "flow"
+              delay: pDelay + i * 0.015, // Extremely tight stagger for "flow"
             }}
           >
             {word}

@@ -94,7 +94,6 @@ export default function ParticleBackground() {
         gl={{alpha: true, antialias: true}}
         style={{background: "transparent"}}
       >
-        <color attach="background" args={["#0A0A0A"]} />
         <ambientLight intensity={0.3} />
         <ParticleSphere />
         <FloatingParticles />

@@ -18,8 +18,7 @@ const founders = [
     name: "Ayush Kumar",
     title: "Co-Founder",
     linkedin: "https://linkedin.com/in/ayushnotkumar",
-    tagline:
-      "Talent is universal. Opportunity is not. We built this to bridge the gap.",
+    tagline: "Technology should empower everyone. We're making that a reality.",
     image: "/Ayush.jpg",
   },
 ];

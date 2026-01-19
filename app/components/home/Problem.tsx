@@ -16,6 +16,7 @@ export function Problem() {
 
   return (
     <section
+      id="problem"
       ref={sectionRef}
       className="relative bg-white text-black py-24 md:py-32 lg:py-40"
     >

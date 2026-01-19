@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useState, useEffect, useRef} from "react";
-import Link from "next/link";
 import {motion, useSpring, AnimatePresence} from "framer-motion";
 import {Menu, X} from "lucide-react";
 
@@ -13,27 +12,61 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {label: "Vision", id: "vision", href: "#vision"},
+  {label: "Problem", id: "problem", href: "#problem"},
   {label: "Services", id: "services", href: "#services"},
   {label: "About", id: "about", href: "#about"},
-  {label: "Contact", id: "contact", href: "#contact"},
 ];
 
 export function Header() {
   const [activeSection, setActiveSection] = useState("vision");
   const [expanded, setExpanded] = useState(false);
   const [hovering, setHovering] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Spring animations for smooth motion
   const pillWidth = useSpring(160, {stiffness: 220, damping: 25, mass: 1});
 
+  // Scroll spy to detect which section is in view
+  useEffect(() => {
+    const sections = [
+      "vision",
+      "problem",
+      "services",
+      "about",
+      "founder",
+      "contact",
+    ];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200; // Offset for header height
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const {offsetTop, offsetHeight} = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, {passive: true});
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Handle hover expansion
   useEffect(() => {
     if (hovering) {
       setExpanded(true);
-      pillWidth.set(520);
+      pillWidth.set(480);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
@@ -55,13 +88,19 @@ export function Header() {
   const handleMouseLeave = () => setHovering(false);
 
   const handleSectionClick = (sectionId: string) => {
-    setIsTransitioning(true);
     setActiveSection(sectionId);
     setHovering(false);
-    setTimeout(() => setIsTransitioning(false), 400);
   };
 
-  const activeItem = NAV_ITEMS.find((item) => item.id === activeSection);
+  // Get display label for active section
+  const getActiveLabel = () => {
+    const item = NAV_ITEMS.find((item) => item.id === activeSection);
+    if (item) return item.label;
+    // Handle sections not in nav
+    if (activeSection === "founder") return "About";
+    if (activeSection === "contact") return "Contact";
+    return "Vision";
+  };
 
   return (
     <>
@@ -129,18 +168,16 @@ export function Header() {
                   DC
                 </a>
                 <AnimatePresence mode="wait">
-                  {activeItem && (
-                    <motion.span
-                      key={activeItem.id}
-                      initial={{opacity: 0, y: 8}}
-                      animate={{opacity: 1, y: 0}}
-                      exit={{opacity: 0, y: -8}}
-                      transition={{duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
-                      className="text-white font-medium text-sm tracking-wide"
-                    >
-                      {activeItem.label}
-                    </motion.span>
-                  )}
+                  <motion.span
+                    key={activeSection}
+                    initial={{opacity: 0, y: 8}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: -8}}
+                    transition={{duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
+                    className="text-white font-medium text-sm tracking-wide"
+                  >
+                    {getActiveLabel()}
+                  </motion.span>
                 </AnimatePresence>
               </div>
             )}
@@ -169,7 +206,7 @@ export function Header() {
                           ease: "easeOut",
                         }}
                         onClick={() => handleSectionClick(item.id)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                           isActive
                             ? "text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
                             : "text-white/70 hover:text-white hover:bg-white/5"
@@ -185,7 +222,7 @@ export function Header() {
                   initial={{opacity: 0, scale: 0.9}}
                   animate={{opacity: 1, scale: 1}}
                   transition={{delay: 0.2}}
-                  className="ml-4 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 transition-transform whitespace-nowrap"
+                  className="ml-3 px-5 py-2 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 transition-transform whitespace-nowrap"
                 >
                   Let's Talk
                 </motion.a>
@@ -198,10 +235,12 @@ export function Header() {
       {/* Mobile Navigation */}
       <header className="fixed top-4 left-4 right-4 z-50 md:hidden">
         <div className="flex items-center justify-between px-4 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-[var(--accent-cyan)] font-bold">Digital</span>
-            <span className="text-white font-bold">Campus</span>
-          </Link>
+          <a href="#vision" className="flex items-center gap-2">
+            <span className="text-[var(--accent-cyan)] font-bold">DC</span>
+            <span className="text-white font-medium text-sm">
+              {getActiveLabel()}
+            </span>
+          </a>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 text-white"

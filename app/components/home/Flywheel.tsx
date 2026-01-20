@@ -7,7 +7,7 @@ const PHASES = [
   {
     title: "Synthesize",
     subtitle: "CodeLogs",
-    desc: "Transforming scattered, uncivilized notes into an AI-powered neural network for your brain.",
+    desc: "From scattered notes to an organised intelligent knowledge base. So you know where to look. All. The. Time.",
   },
   {
     title: "Showcase",
@@ -17,12 +17,12 @@ const PHASES = [
   {
     title: "Connect",
     subtitle: "Inkwell",
-    desc: "Connect with like-minded peers based on verified skills and merit, not just social status.",
+    desc: "Networking up to chance? Not anymore. Introducing merit based connections and collaborations.",
   },
   {
     title: "Earn",
     subtitle: "Opus",
-    desc: "A streamlined marketplace engineered to connect your talent with verified verified freelance opportunities.",
+    desc: "A streamlined marketplace engineered to connect your talent with verified freelance opportunities.",
   },
 ];
 

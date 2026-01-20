@@ -19,7 +19,7 @@ const PROBLEMS = [
   },
   {
     title: "Economic Isolation",
-    desc: "Turning academic excellence into professional income.",
+    desc: "Turning your knowledge into noteworthy experience.",
   },
 ];
 

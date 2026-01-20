@@ -16,7 +16,7 @@ const EXPECTATIONS = [
   },
   {
     id: "03",
-    title: "Merit-Based Connection",
+    title: "Merit Over Network",
     desc: "We value what you can do, not who you know. Connect with collaborators who match your drive and skills, building networks rooted in capability, not just proximity.",
   },
   {
@@ -50,7 +50,7 @@ export function Expectations() {
             </h2>
             <div className="h-[2px] w-32 bg-black/10" />
             <p className="mt-8 text-lg md:text-xl text-black/60 max-w-md font-medium">
-              We're building a new standard for student excellence. Here's our
+              We're building a new standard for student ecosystems. Here's our
               promise to you.
             </p>
           </motion.div>

@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Rubik } from "next/font/google";
+import type {Metadata} from "next";
+import {Geist, Geist_Mono, Rubik} from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: "Klaer AI | The Future of Student Growth",
   description:
     "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({

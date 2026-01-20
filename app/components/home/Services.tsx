@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 // --- Data ---
 
@@ -131,9 +132,15 @@ export function Services() {
 
           {/* Services Grid */}
           <div className="lg:w-[60%] grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-16">
-            {SERVICES.map((item, index) => (
-              <ServiceCard key={item.id} item={item} index={index} />
-            ))}
+            {SERVICES.map((item, index) =>
+              index === 0 ? (
+                <Link key={item.id} href="/coming-soon" className="block">
+                  <ServiceCard item={item} index={index} />
+                </Link>
+              ) : (
+                <ServiceCard key={item.id} item={item} index={index} />
+              )
+            )}
           </div>
         </div>
       </div>

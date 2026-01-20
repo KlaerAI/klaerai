@@ -76,9 +76,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl lg:text-2xl text-[var(--gray-body)] max-w-2xl mb-12 md:mb-16 font-light leading-relaxed">
-            An all-in-one digital ecosystem that democratizes academic support,
-            events, freelancing, and networking for every college
-            student—powered by AI.
+            An all-in-one digital ecosystem that levels the playing field with academic support, events, freelancing, and networking for every college student—powered by AI.
           </p>
 
           {/* CTAs */}

@@ -1,7 +1,7 @@
 "use client";
 
-import React, {useRef, useState, useEffect} from "react";
-import {motion, useInView, AnimatePresence} from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 // --- Data ---
@@ -76,7 +76,7 @@ const DELAY_BUTTON = 0.8;
 export function Services() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
-  const headlineInView = useInView(headlineRef, {once: true, margin: "-100px"});
+  const headlineInView = useInView(headlineRef, { once: true, margin: "-100px" });
   const [wordIndex, setWordIndex] = useState(0);
 
   // Cycle Dynamic Word
@@ -102,9 +102,9 @@ export function Services() {
               <h2 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] font-bold leading-[0.9] tracking-tight text-white flex flex-col items-start">
                 <div className="overflow-hidden mb-2 pb-4">
                   <motion.span
-                    initial={{y: "100%"}}
-                    animate={headlineInView ? {y: 0} : {y: "100%"}}
-                    transition={{duration: 0.8, ease: REVEAL_EASE}}
+                    initial={{ y: "100%" }}
+                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
+                    transition={{ duration: 0.8, ease: REVEAL_EASE }}
                     className="block"
                   >
                     Redefining
@@ -116,12 +116,12 @@ export function Services() {
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       key={wordIndex}
-                      initial={{y: "120%", opacity: 0}} // Slide in from further down
-                      animate={{y: 0, opacity: 1}}
-                      exit={{y: "-120%", opacity: 0}} // Slide out further up
-                      transition={{duration: 0.8, ease: "easeInOut"}} // Smoother, standard easing
+                      initial={{ y: "120%", opacity: 0 }} // Slide in from further down
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: "-120%", opacity: 0 }} // Slide out further up
+                      transition={{ duration: 0.8, ease: "easeInOut" }} // Smoother, standard easing
                       className="block text-[#00CED1] origin-left"
-                      style={{textShadow: ACCENT_GLOW}}
+                      style={{ textShadow: ACCENT_GLOW }}
                     >
                       {DYNAMIC_WORDS[wordIndex]}
                     </motion.span>
@@ -130,9 +130,9 @@ export function Services() {
 
                 <div className="overflow-hidden">
                   <motion.span
-                    initial={{y: "100%"}}
-                    animate={headlineInView ? {y: 0} : {y: "100%"}}
-                    transition={{duration: 0.8, ease: REVEAL_EASE, delay: 0.15}}
+                    initial={{ y: "100%" }}
+                    animate={headlineInView ? { y: 0 } : { y: "100%" }}
+                    transition={{ duration: 0.8, ease: REVEAL_EASE, delay: 0.15 }}
                     className="block whitespace-nowrap"
                   >
                     On Campus
@@ -162,7 +162,7 @@ function ServiceCard({
   index: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, {once: true, margin: "-10%"});
+  const isInView = useInView(cardRef, { once: true, margin: "-10%" });
 
   // Stagger cascading based on index
   const baseDelay = index * 0.15;
@@ -182,8 +182,8 @@ function ServiceCard({
             y2="100%"
             stroke="rgba(255,255,255,0.15)"
             strokeWidth="4"
-            initial={{pathLength: 0}}
-            animate={isInView ? {pathLength: 1} : {pathLength: 0}}
+            initial={{ pathLength: 0 }}
+            animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
             transition={{
               duration: 1,
               ease: "easeOut",
@@ -196,8 +196,8 @@ function ServiceCard({
       {/* 2. Number (Scale/Slide Up) */}
       <div className="mb-4 relative overflow-hidden">
         <motion.span
-          initial={{y: "100%", opacity: 0}}
-          animate={isInView ? {y: 0, opacity: 1} : {y: "100%", opacity: 0}}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }}
           transition={{
             duration: 0.7,
             ease: SPRING_EASE,
@@ -214,8 +214,8 @@ function ServiceCard({
         <span className="block overflow-hidden">
           <motion.span
             className="block"
-            initial={{y: "100%"}}
-            animate={isInView ? {y: 0} : {y: "100%"}}
+            initial={{ y: "100%" }}
+            animate={isInView ? { y: 0 } : { y: "100%" }}
             transition={{
               duration: 0.6,
               ease: REVEAL_EASE,
@@ -231,13 +231,13 @@ function ServiceCard({
                   {/* Base geometry is visible, but we layer color on top or just switch it */}
                   {isAccent ? (
                     <motion.span
-                      initial={{color: "#ffffff", textShadow: "none"}}
+                      initial={{ color: "#ffffff", textShadow: "none" }}
                       animate={
                         isInView
                           ? {
-                              color: "#ffffff",
-                              textShadow: "0 0 10px rgba(255, 255, 255, 0.4)",
-                            }
+                            color: "#ffffff",
+                            textShadow: "0 0 10px rgba(255, 255, 255, 0.4)",
+                          }
                           : {}
                       }
                       // Color transition happens slightly after geometry reveal
@@ -272,8 +272,8 @@ function ServiceCard({
         {item.features.map((feature, i) => (
           <motion.li
             key={i}
-            initial={{opacity: 0, x: -20}}
-            animate={isInView ? {opacity: 1, x: 0} : {opacity: 0, x: -20}}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             transition={{
               duration: 0.4,
               delay: baseDelay + DELAY_BULLETS + i * 0.08,
@@ -283,7 +283,7 @@ function ServiceCard({
           >
             <span
               className="w-1.5 h-1.5 rounded-full"
-              style={{backgroundColor: ACCENT_COLOR}}
+              style={{ backgroundColor: ACCENT_COLOR }}
             />
             {feature}
           </motion.li>
@@ -292,8 +292,8 @@ function ServiceCard({
 
       {/* 6. Know More Button */}
       <motion.div
-        initial={{opacity: 0, y: 10}}
-        animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 10}}
+        initial={{ opacity: 0, y: 10 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
         transition={{
           duration: 0.4,
           delay: baseDelay + DELAY_BUTTON,
@@ -301,7 +301,7 @@ function ServiceCard({
         }}
       >
         <Link
-          href={item.link || "#"}
+          href="/coming-soon"
           className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[10px] md:text-xs font-medium uppercase tracking-wider border border-white/20 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
         >
           Know More
@@ -328,8 +328,8 @@ function WordReveal({
         <span key={i} className="block overflow-hidden">
           <motion.span
             className="block"
-            initial={{y: "110%"}} // Start deeply hidden
-            animate={isInView ? {y: 0} : {y: "110%"}}
+            initial={{ y: "110%" }} // Start deeply hidden
+            animate={isInView ? { y: 0 } : { y: "110%" }}
             transition={{
               duration: 0.5,
               ease: [0.25, 0.1, 0.25, 1],

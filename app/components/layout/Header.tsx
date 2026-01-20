@@ -180,6 +180,7 @@ export function Header() {
                       .querySelector("#vision")
                       ?.scrollIntoView({ behavior: "smooth" });
                     setActiveSection("vision");
+                    history.pushState(null, "", " ");
                   }}
                   className="text-[var(--accent-cyan)] font-bold text-sm"
                 >
@@ -211,6 +212,7 @@ export function Header() {
                       .querySelector("#vision")
                       ?.scrollIntoView({ behavior: "smooth" });
                     setActiveSection("vision");
+                    history.pushState(null, "", " ");
                   }}
                   className="text-[var(--accent-cyan)] font-bold text-sm mr-4"
                 >
@@ -234,8 +236,16 @@ export function Header() {
                           e.preventDefault();
                           const element = document.querySelector(item.href);
                           if (element) {
+                            // Use window.scrollTo instead of scrollIntoView to have more control if needed, 
+                            // but scrollIntoView with behavior smooth is standard. 
+                            // Key is preventDefault() stops the hash.
+                            const yOffset = -80; // Account for header height? 
+                            // actually scrollIntoView centers or aligns top. 
+                            // Let's stick to scrollIntoView but ensure NO hash.
                             element.scrollIntoView({ behavior: "smooth" });
                             setActiveSection(item.id);
+                            // Ensure URL doesn't look like /#vision
+                            history.pushState(null, "", " ");
                           }
                         }}
                         className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive

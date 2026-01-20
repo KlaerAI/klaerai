@@ -1,7 +1,7 @@
 "use client";
 
-import React, {useRef} from "react";
-import {motion} from "framer-motion";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
 
 // --- Data (Condensed) ---
 const PROBLEMS = [
@@ -33,17 +33,17 @@ export function Problem() {
     <section
       id="problem"
       ref={sectionRef}
-      className="relative bg-white text-black py-24 md:py-32 lg:py-40"
+      className="relative bg-white text-black py-32 md:py-40 lg:py-52"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         {/* Header Section */}
         <div className="mb-16 md:mb-24">
           <div className="overflow-hidden">
             <motion.h2
-              initial={{y: "100%"}}
-              whileInView={{y: 0}}
-              viewport={{once: true, margin: "-100px"}}
-              transition={{duration: 1, ease: REVEAL_EASE}}
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: REVEAL_EASE }}
               className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-tight tracking-tight pb-4"
             >
               The Student Experience <br className="hidden md:block" />
@@ -57,9 +57,9 @@ export function Problem() {
           {PROBLEMS.map((item, i) => (
             <motion.div
               key={i}
-              initial={{opacity: 0, y: 40}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true, margin: "-50px"}}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{
                 duration: 0.8,
                 delay: i * 0.15,

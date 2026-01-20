@@ -352,12 +352,17 @@ export function Header() {
                     onClick={(e) => {
                       e.preventDefault();
                       const element = document.querySelector(item.href);
+                      setIsMobileMenuOpen(false); // Close first
+
                       if (element) {
-                        element.scrollIntoView({behavior: "smooth"});
-                        setActiveSection(item.id);
-                        history.pushState(null, "", " ");
+                        // Small delay to allow menu exit animation to start/finish clearing the GPU load
+                        // preventing the "jitter" of scrolling + blurring simultaneously
+                        setTimeout(() => {
+                          element.scrollIntoView({behavior: "smooth"});
+                          setActiveSection(item.id);
+                          history.pushState(null, "", " ");
+                        }, 300);
                       }
-                      setIsMobileMenuOpen(false);
                     }}
                     className={`text-4xl font-light tracking-tight transition-all duration-300 ${
                       isActive

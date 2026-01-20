@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import React, {useRef, useState, useEffect} from "react";
+import {motion, useInView, AnimatePresence} from "framer-motion";
 import Link from "next/link";
 
 // --- Data ---
@@ -48,7 +48,7 @@ const SERVICES = [
     features: [
       "Verified Freelance Gigs",
       "Skill-Matched Bidding",
-      "Secure On-Campus Payments",
+      "Secure Lumen Payments",
     ],
   },
 ];
@@ -147,7 +147,7 @@ export function Services() {
                 </Link>
               ) : (
                 <ServiceCard key={item.id} item={item} index={index} />
-              )
+              ),
             )}
           </div>
         </div>

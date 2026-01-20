@@ -127,12 +127,12 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         1N: Transparent, White Stroke
       */}
       <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[14vw] md:text-[10rem] leading-none tracking-tighter">
-        <span className="font-bold text-black">SAV</span>
+        <span className="font-bold text-black">Campus</span>
         <span
           className="font-medium text-transparent ml-[0.02em]"
           style={{WebkitTextStroke: "2px black"}}
         >
-          1N
+          OS
         </span>
       </div>
 

@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Header } from "../components/layout/Header";
 
-// Target date: 45 days from now
-const TARGET_DAYS = 45;
+function ComingSoonContent() {
+    const searchParams = useSearchParams();
+    const daysParam = searchParams.get("days");
+    const targetDays = daysParam ? parseInt(daysParam) : 45;
 
-export default function ComingSoon() {
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
         hours: 0,
@@ -19,7 +21,7 @@ export default function ComingSoon() {
     useEffect(() => {
         // Set target date only on client side to avoid hydration mismatch
         const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + TARGET_DAYS);
+        targetDate.setDate(targetDate.getDate() + targetDays);
 
         const calculateTimeLeft = () => {
             const difference = +targetDate - +new Date();
@@ -49,7 +51,7 @@ export default function ComingSoon() {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [targetDays]);
 
     return (
         <div className="relative bg-[var(--black-primary)] min-h-screen text-[var(--white-primary)] font-sans selection:bg-[var(--accent-cyan)] selection:text-black flex flex-col">
@@ -98,6 +100,14 @@ export default function ComingSoon() {
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function ComingSoon() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ComingSoonContent />
+        </Suspense>
     );
 }
 

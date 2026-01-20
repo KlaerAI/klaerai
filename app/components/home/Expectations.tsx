@@ -1,23 +1,28 @@
 "use client";
 
-import React, {useRef} from "react";
-import {motion, useInView, useScroll, useTransform} from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const EXPECTATIONS = [
   {
     id: "01",
-    title: "Relentless Innovation",
-    desc: "We don't just follow trends; we set them. Expect cutting-edge features that redefine what's possible in student technology.",
+    title: "Intelligent Synthesis",
+    desc: "We transform your scattered academic chaos into a streamlined, AI-powered knowledge base. No more lost notes—just pure, accessible intelligence.",
   },
   {
     id: "02",
-    title: "Uncompromising Quality",
-    desc: "Every pixel, every interaction, every line of code is function-first and meticulously crafted for a premium experience.",
+    title: "Universal Exposure",
+    desc: "We break down institutional silos. Your events and achievements deserve a stage that spans every campus, ensuring you are seen by the right people, everywhere.",
   },
   {
     id: "03",
-    title: "Radical Transparency",
-    desc: "No hidden agendas. We build with you, for you. Your growth is our only metric of success.",
+    title: "Merit-Based Connection",
+    desc: "We value what you can do, not who you know. Connect with collaborators who match your drive and skills, building networks rooted in capability, not just proximity.",
+  },
+  {
+    id: "04",
+    title: "Skill Monetization",
+    desc: "We turn your potential into kinetic energy. Your skills aren't just for grades—they are currency. Access a marketplace designed to validate and reward your craft.",
   },
 ];
 
@@ -34,10 +39,10 @@ export function Expectations() {
         {/* Sticky Header Side */}
         <div className="lg:w-1/2 lg:h-[60vh] flex flex-col justify-center lg:sticky lg:top-[20vh] self-start">
           <motion.div
-            initial={{opacity: 0, x: -50}}
-            whileInView={{opacity: 1, x: 0}}
-            transition={{duration: 0.8, ease: "easeOut"}}
-            viewport={{once: true}}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
           >
             <h2 className="text-[3rem] md:text-[5rem] lg:text-[7rem] font-bold leading-[0.9] tracking-tighter mb-8">
               What to <br />
@@ -70,22 +75,22 @@ function ExpectationItem({
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, {once: true, margin: "-10% 0px -10% 0px"});
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px -10% 0px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{opacity: 0, y: 50}}
-      animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 50}}
-      transition={{duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1}}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       className="group relative border-l-2 border-dashed border-black/10 pl-8 md:pl-12 py-4"
     >
       {/* Active Indicator Line on Hover/View */}
       <motion.div
         className="absolute left-[-2px] top-0 bottom-0 w-[2px] bg-[var(--accent-cyan)]"
-        initial={{scaleY: 0}}
-        animate={isInView ? {scaleY: 1} : {scaleY: 0}}
-        transition={{duration: 0.8, ease: "easeInOut"}}
+        initial={{ scaleY: 0 }}
+        animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
       />
 
       <span className="block text-sm font-bold tracking-[0.2em] text-[var(--accent-cyan)] mb-4">

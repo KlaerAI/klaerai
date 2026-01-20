@@ -64,7 +64,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-4 space-y-6">
             <h4 className="text-xl font-bold text-white tracking-tight">
-              Digital<span className="text-[var(--accent-cyan)]">Campus</span>
+              Lumen.<span className="text-[var(--accent-cyan)]">AI</span>
             </h4>
             <p className="text-[var(--gray-body)] leading-relaxed max-w-sm">
               Empowering the next generation of builders, creators, and leaders.
@@ -171,8 +171,8 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-sm text-[var(--gray-body)]">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
-            <span className="font-bold text-white">Digital</span>
-            <span className="text-[var(--accent-cyan)]">Campus</span>
+            <span className="font-bold text-white">Lumen.</span>
+            <span className="text-[var(--accent-cyan)]">AI</span>
             <span className="ml-4">© 2026 All rights reserved.</span>
           </div>
 

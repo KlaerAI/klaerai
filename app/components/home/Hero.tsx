@@ -68,7 +68,7 @@ export function Hero() {
         <div className="max-w-5xl">
           {/* Main Headline */}
           <h1 className="text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] leading-[0.95] font-light tracking-[-0.03em] mb-8 md:mb-12">
-            <span className="block text-white">One Campus.</span>
+            <span className="block text-white">Lumen.AI</span>
             <span className="font-bold text-white">Infinite </span>
             <span className="font-bold text-white">Opportunities</span>
             <span className="text-[var(--accent-cyan)]">.</span>
@@ -167,7 +167,7 @@ function PartnerModal({onClose}: {onClose: () => void}) {
           </h3>
           <p className="text-white/60 leading-relaxed">
             We're always looking for visionary partners. Reach out to discuss
-            how we can build the future of campus connection together.
+            how we can build the future of student growth together.
           </p>
         </div>
 

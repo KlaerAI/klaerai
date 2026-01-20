@@ -22,7 +22,7 @@ const EXPECTATIONS = [
   {
     id: "04",
     title: "Skill Monetization",
-    desc: "We turn your potential into kinetic energy. Your skills aren't just for grades—they are currency. Access a marketplace designed to validate and reward your craft.",
+    desc: "Turning skills into opportunities engineered for student talent. Your gateway to verified freelance opportunities and building expertise.",
   },
 ];
 

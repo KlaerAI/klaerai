@@ -71,7 +71,7 @@ export function Marquee() {
     return (
         <section className="relative w-full overflow-hidden bg-[var(--accent-cyan)] text-black py-3 md:py-4 z-20 border-y border-black/10">
             <ParallaxText baseVelocity={2}>
-                Services we are about to release — Services we are about to release —
+                Services we are about to offer — Services we are about to offer —
             </ParallaxText>
         </section>
     );

@@ -105,7 +105,10 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         className="flex flex-col leading-[1em] will-change-transform"
       >
         {Array.from({length: count}).map((_, i) => (
-          <span key={`${id}-${i}`} className="block text-center font-rubik">
+          <span
+            key={`${id}-${i}`}
+            className="block text-center font-rubik font-medium"
+          >
             {i % 10}
           </span>
         ))}
@@ -126,13 +129,13 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         SAV: Bold, White
         1N: Transparent, White Stroke
       */}
-      <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[14vw] md:text-[10rem] leading-none tracking-tighter">
-        <span className="font-bold text-black">Campus</span>
+      <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[13vw] md:text-[10rem] leading-none tracking-tighter">
+        <span className="font-bold text-black">Lumen</span>
         <span
           className="font-medium text-transparent ml-[0.02em]"
           style={{WebkitTextStroke: "2px black"}}
         >
-          OS
+          .AI
         </span>
       </div>
 
@@ -147,7 +150,10 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
           LOADING
         </span>
 
-        <div className="flex items-end font-medium text-5xl md:text-8xl leading-[0.9] tracking-tight overflow-hidden h-[0.9em]">
+        <div
+          className="flex items-end font-medium text-transparent text-5xl md:text-8xl leading-[0.9] tracking-tight h-[0.9em]"
+          style={{WebkitTextStroke: "2px black"}}
+        >
           {/* Hundreds: 0-1 */}
           <NumberStrip ref={hundredsRef} count={2} id="hundreds" />
           {/* Tens: 0-9 */}
@@ -155,7 +161,10 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
           {/* Ones: 0-9 */}
           <NumberStrip ref={onesRef} count={10} id="ones" />
 
-          <span className="block ml-1 text-2xl md:text-5xl self-start mt-2">
+          <span
+            className="block ml-1 text-2xl md:text-5xl self-start mt-2 italic font-light text-black pr-2"
+            style={{WebkitTextStroke: "0"}}
+          >
             %
           </span>
         </div>

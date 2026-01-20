@@ -12,11 +12,7 @@ const SERVICES = [
     title: "CodeLogs",
     accentWord: "CodeLogs",
     desc: "Transforming scattered, uncivilized notes into an AI-powered neural network for your brain.",
-    features: [
-      "AI Code Assistant",
-      "Auto Documentation",
-      "Revision Made Easy",
-    ],
+    features: ["AI Code Assistant", "Auto Documentation", "Revision Made Easy"],
     link: "/codelogs",
   },
   {
@@ -301,7 +297,7 @@ function ServiceCard({
         }}
       >
         <Link
-          href="/coming-soon"
+          href={item.link || "#"}
           className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[10px] md:text-xs font-medium uppercase tracking-wider border border-white/20 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
         >
           Know More

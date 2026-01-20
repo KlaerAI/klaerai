@@ -1,9 +1,9 @@
 "use client";
 
-import React, {useRef, useState, useEffect} from "react";
-import {motion, useInView} from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import {Send, MessageCircle, Github, Mail} from "lucide-react";
+import { Send, MessageCircle, Github, Mail } from "lucide-react";
 
 const FOOTER_LINKS = [
   {
@@ -26,7 +26,7 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, {once: true, margin: "-100px"});
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [localTime, setLocalTime] = useState("");
 
   useEffect(() => {
@@ -56,15 +56,15 @@ export function Footer() {
 
         {/* Links Grid */}
         <motion.div
-          initial={{opacity: 0}}
-          animate={isInView ? {opacity: 1} : {}}
-          transition={{duration: 0.8, delay: 0.3}}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="grid grid-cols-1 md:grid-cols-12 gap-12 py-16 border-t border-white/10"
         >
           {/* Brand Column */}
           <div className="md:col-span-4 space-y-6">
             <h4 className="text-xl font-bold text-white tracking-tight">
-              Lumen.<span className="text-[var(--accent-cyan)]">AI</span>
+              Klaer <span className="text-[var(--accent-cyan)]">AI</span>
             </h4>
             <p className="text-[var(--gray-body)] leading-relaxed max-w-sm">
               Empowering the next generation of builders, creators, and leaders.
@@ -171,7 +171,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-sm text-[var(--gray-body)]">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
-            <span className="font-bold text-white">Lumen.</span>
+            <span className="font-bold text-white">Klaer</span>
             <span className="text-[var(--accent-cyan)]">AI</span>
             <span className="ml-4">© 2026 All rights reserved.</span>
           </div>

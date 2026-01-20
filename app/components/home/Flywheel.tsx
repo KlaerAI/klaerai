@@ -1,34 +1,34 @@
 "use client";
 
-import React, {useRef} from "react";
-import {motion, useScroll, useTransform} from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const PHASES = [
   {
-    title: "Learn",
-    subtitle: "Master Skills",
-    desc: "Access AI-powered tutoring, study resources, and personalized learning paths.",
+    title: "Synthesize",
+    subtitle: "CodeLogs",
+    desc: "Transforming scattered, uncivilized notes into an AI-powered neural network for your brain.",
   },
   {
-    title: "Build",
-    subtitle: "Create Impact",
-    desc: "Participate in hackathons, collaborate on projects, and build your portfolio.",
+    title: "Showcase",
+    subtitle: "Axiom",
+    desc: "A unified infrastructure for events that bridge the institutional gap and amplify your reach.",
+  },
+  {
+    title: "Connect",
+    subtitle: "Inkwell",
+    desc: "Connect with like-minded peers based on verified skills and merit, not just social status.",
   },
   {
     title: "Earn",
-    subtitle: "Get Rewarded",
-    desc: "Monetize your skills through verified gigs and freelance opportunities.",
-  },
-  {
-    title: "Lead",
-    subtitle: "Shape The Future",
-    desc: "Mentor others, lead communities, and become a campus influencer.",
+    subtitle: "Opus",
+    desc: "A streamlined marketplace engineered to connect your talent with verified verified freelance opportunities.",
   },
 ];
 
 export function Flywheel() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {scrollYProgress} = useScroll({
+  const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
@@ -44,16 +44,16 @@ export function Flywheel() {
   );
 
   return (
-    <section className="relative bg-[var(--black-primary)] text-white">
+    <section id="system" className="relative bg-[var(--black-primary)] text-white">
       <div ref={containerRef} className="h-[300vh] relative">
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="max-w-[1440px] mx-auto px-4 md:px-12 lg:px-20 w-full">
+            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
               {/* Left: Rotating Diagram */}
-              <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] flex-shrink-0">
+              <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] flex-shrink-0 scale-90 md:scale-100 transform origin-center">
                 {/* Outer Ring */}
                 <motion.div
-                  style={{rotate: rotation}}
+                  style={{ rotate: rotation }}
                   className="absolute inset-0 rounded-full border border-[var(--accent-cyan)]/30"
                 >
                   {/* Phase indicators on the ring */}
@@ -72,7 +72,7 @@ export function Flywheel() {
 
                 {/* Inner Ring */}
                 <motion.div
-                  style={{rotate: useTransform(rotation, (r) => -r * 0.5)}}
+                  style={{ rotate: useTransform(rotation, (r) => -r * 0.5) }}
                   className="absolute inset-8 md:inset-12 lg:inset-16 rounded-full border border-white/10"
                 />
 
@@ -92,36 +92,15 @@ export function Flywheel() {
               </div>
 
               {/* Right: Phase Cards */}
-              <div className="flex-1 space-y-6 md:space-y-8">
+              {/* Right: Phase Cards */}
+              <div className="flex-1 relative h-[260px] md:h-[350px] w-full flex items-center">
                 {PHASES.map((phase, i) => (
-                  <motion.div
+                  <FlywheelCard
                     key={i}
-                    style={{
-                      opacity: useTransform(
-                        activeIndex,
-                        [i - 0.5, i, i + 0.5],
-                        [0.3, 1, 0.3],
-                      ),
-                      scale: useTransform(
-                        activeIndex,
-                        [i - 0.5, i, i + 0.5],
-                        [0.95, 1, 0.95],
-                      ),
-                    }}
-                    className="p-6 md:p-8 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-sm"
-                  >
-                    <div className="flex items-baseline gap-4 mb-3">
-                      <span className="text-4xl md:text-5xl font-bold text-[var(--accent-cyan)]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <h3 className="text-2xl md:text-3xl font-bold">
-                        {phase.title}
-                      </h3>
-                    </div>
-                    <p className="text-[var(--gray-body)] text-base md:text-lg">
-                      {phase.desc}
-                    </p>
-                  </motion.div>
+                    phase={phase}
+                    index={i}
+                    activeIndex={activeIndex}
+                  />
                 ))}
               </div>
             </div>
@@ -129,5 +108,61 @@ export function Flywheel() {
         </div>
       </div>
     </section>
+  );
+}
+
+function FlywheelCard({
+  phase,
+  index,
+  activeIndex,
+}: {
+  phase: (typeof PHASES)[0];
+  index: number;
+  activeIndex: any;
+}) {
+  const opacity = useTransform(
+    activeIndex,
+    [index - 0.4, index, index + 0.4],
+    [0, 1, 0],
+  );
+  const y = useTransform(
+    activeIndex,
+    [index - 0.4, index, index + 0.4],
+    [50, 0, -50],
+  );
+  const scale = useTransform(
+    activeIndex,
+    [index - 0.4, index, index + 0.4],
+    [0.9, 1, 0.9],
+  );
+  // We can't use `useTransform` for zIndex directly in style if it returns a number that changes non-continuously usually? 
+  // actually framer motion handles it.
+  const zIndex = useTransform(activeIndex, (v: number) =>
+    Math.round(v) === index ? 10 : 0,
+  );
+
+  return (
+    <motion.div
+      style={{
+        opacity,
+        y,
+        scale,
+        zIndex,
+      }}
+      className="absolute inset-x-0 p-5 md:p-8 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-sm shadow-xl"
+    >
+      <div className="flex items-baseline gap-4 mb-3">
+        <span className="text-4xl md:text-5xl font-bold text-[var(--accent-cyan)]">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h3 className="text-2xl md:text-3xl font-bold">{phase.title}</h3>
+      </div>
+      <div className="text-lg text-[var(--accent-cyan)] mb-2 font-medium tracking-wide">
+        {phase.subtitle}
+      </div>
+      <p className="text-[var(--gray-body)] text-base md:text-lg leading-relaxed">
+        {phase.desc}
+      </p>
+    </motion.div>
   );
 }

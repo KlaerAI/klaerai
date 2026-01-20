@@ -1,5 +1,5 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono, Rubik} from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,7 +19,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "Lumen.AI | The Future of Student Growth",
+  title: "Klaer AI | The Future of Student Growth",
   description:
     "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
 };

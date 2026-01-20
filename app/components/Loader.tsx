@@ -1,9 +1,9 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function Loader({onComplete}: {onComplete?: () => void}) {
+export default function Loader({ onComplete }: { onComplete?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(true);
 
@@ -37,7 +37,7 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
       // User said "exact same". Sav1n starts with black screen, logo appears, counter runs.
       // Usually fast appearance.
 
-      const proxy = {val: 0};
+      const proxy = { val: 0 };
 
       // 1. Logo Entrance (Fade in / Scale up slightly)
       tl.from(
@@ -68,9 +68,9 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
             // We move by 'em' units. Since line-height is 1em (relative to font size),
             // we shift -1em * digit.
             if (hundredsRef.current)
-              gsap.set(hundredsRef.current, {y: `${-hundreds}em`});
-            if (tensRef.current) gsap.set(tensRef.current, {y: `${-tens}em`});
-            if (onesRef.current) gsap.set(onesRef.current, {y: `${-ones}em`});
+              gsap.set(hundredsRef.current, { y: `${-hundreds}em` });
+            if (tensRef.current) gsap.set(tensRef.current, { y: `${-tens}em` });
+            if (onesRef.current) gsap.set(onesRef.current, { y: `${-ones}em` });
           },
         },
         0.2,
@@ -97,14 +97,14 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
 
   const NumberStrip = React.forwardRef<
     HTMLDivElement,
-    {count: number; id: string}
-  >(({count, id}, ref) => (
+    { count: number; id: string }
+  >(({ count, id }, ref) => (
     <div className="h-[1em] overflow-hidden relative inline-block align-bottom">
       <div
         ref={ref}
         className="flex flex-col leading-[1em] will-change-transform"
       >
-        {Array.from({length: count}).map((_, i) => (
+        {Array.from({ length: count }).map((_, i) => (
           <span
             key={`${id}-${i}`}
             className="block text-center font-rubik font-medium"
@@ -121,7 +121,7 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
     <div
       ref={containerRef}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white text-black cursor-wait select-none"
-      style={{fontFamily: "var(--font-rubik), Rubik, sans-serif"}}
+      style={{ fontFamily: "var(--font-rubik), Rubik, sans-serif" }}
     >
       {/* 
         LOGO CENTER 
@@ -130,12 +130,12 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
         1N: Transparent, White Stroke
       */}
       <div className="loader-logo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[13vw] md:text-[10rem] leading-none tracking-tighter">
-        <span className="font-bold text-black">Lumen</span>
+        <span className="font-bold text-black">Klaer</span>
         <span
           className="font-medium text-transparent ml-[0.02em]"
-          style={{WebkitTextStroke: "2px black"}}
+          style={{ WebkitTextStroke: "2px black" }}
         >
-          .AI
+          AI
         </span>
       </div>
 
@@ -152,7 +152,7 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
 
         <div
           className="flex items-end font-medium text-transparent text-5xl md:text-8xl leading-[0.9] tracking-tight h-[0.9em]"
-          style={{WebkitTextStroke: "2px black"}}
+          style={{ WebkitTextStroke: "2px black" }}
         >
           {/* Hundreds: 0-1 */}
           <NumberStrip ref={hundredsRef} count={2} id="hundreds" />
@@ -163,7 +163,7 @@ export default function Loader({onComplete}: {onComplete?: () => void}) {
 
           <span
             className="block ml-1 text-2xl md:text-5xl self-start mt-2 italic font-light text-black pr-2"
-            style={{WebkitTextStroke: "0"}}
+            style={{ WebkitTextStroke: "0" }}
           >
             %
           </span>

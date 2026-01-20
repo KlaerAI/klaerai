@@ -1,8 +1,8 @@
 "use client";
 
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import {ArrowDown, X, Copy, Check, Mail} from "lucide-react";
+import { ArrowDown, X, Copy, Check, Mail } from "lucide-react";
 import {
   motion,
   useScroll,
@@ -14,13 +14,13 @@ import {
 // Dynamic import to avoid SSR issues with Three.js
 const ParticleBackground = dynamic(
   () => import("../three/ParticleBackground"),
-  {ssr: false},
+  { ssr: false },
 );
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {scrollYProgress} = useScroll({
+  const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
@@ -42,7 +42,7 @@ export function Hero() {
   const scrollToServices = () => {
     const servicesSection = document.getElementById("services");
     if (servicesSection) {
-      servicesSection.scrollIntoView({behavior: "smooth"});
+      servicesSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -54,7 +54,7 @@ export function Hero() {
     >
       {/* 3D Particle Background - uses GPU-accelerated transform */}
       <motion.div
-        style={{opacity: bgOpacity}}
+        style={{ opacity: bgOpacity }}
         className="absolute inset-0 md:left-[30%] z-0 will-change-transform"
       >
         <ParticleBackground />
@@ -62,13 +62,13 @@ export function Hero() {
 
       {/* Content */}
       <motion.div
-        style={{opacity: contentOpacity, y: contentY}}
+        style={{ opacity: contentOpacity, y: contentY }}
         className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full will-change-transform"
       >
         <div className="max-w-5xl">
           {/* Main Headline */}
           <h1 className="text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] leading-[0.95] font-light tracking-[-0.03em] mb-8 md:mb-12">
-            <span className="block text-white">Lumen.AI</span>
+            <span className="block text-white">Klaer AI</span>
             <span className="font-bold text-white">Infinite </span>
             <span className="font-bold text-white">Opportunities</span>
             <span className="text-[var(--accent-cyan)]">.</span>
@@ -83,8 +83,8 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 md:gap-6">
             {/* Primary CTA - Outlined Pill */}
             <motion.button
-              whileHover={{scale: 1.05}}
-              whileTap={{scale: 0.98}}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
               onClick={scrollToServices}
               className="group px-8 md:px-10 py-4 md:py-5 rounded-full border-2 border-white text-white font-semibold text-base md:text-lg tracking-wide flex items-center gap-3 hover:bg-white hover:text-black transition-all duration-300"
             >
@@ -106,14 +106,14 @@ export function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        initial={{opacity: 0, y: 10}}
-        animate={{opacity: 1, y: 0}}
-        transition={{delay: 2, duration: 0.8}}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
       >
         <motion.div
-          animate={{y: [0, 8, 0]}}
-          transition={{repeat: Infinity, duration: 2, ease: "easeInOut"}}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
         >
           <motion.div className="w-1 h-2 bg-white/60 rounded-full" />
@@ -128,25 +128,25 @@ export function Hero() {
   );
 }
 
-function PartnerModal({onClose}: {onClose: () => void}) {
+function PartnerModal({ onClose }: { onClose: () => void }) {
   const emails = ["ayushkumar85385@gmail.com", "mobasshirkhan9931@gmail.com"];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       {/* Backdrop */}
       <motion.div
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        exit={{opacity: 0}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         onClick={onClose}
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       />
 
       {/* Modal Content */}
       <motion.div
-        initial={{scale: 0.95, opacity: 0, y: 20}}
-        animate={{scale: 1, opacity: 1, y: 0}}
-        exit={{scale: 0.95, opacity: 0, y: 20}}
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.95, opacity: 0, y: 20 }}
         className="relative bg-[#111] border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl"
       >
         <button
@@ -179,7 +179,7 @@ function PartnerModal({onClose}: {onClose: () => void}) {
   );
 }
 
-function EmailRow({email}: {email: string}) {
+function EmailRow({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {

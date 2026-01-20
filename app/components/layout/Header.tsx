@@ -26,7 +26,7 @@ export function Header() {
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Spring animations for smooth motion
-  const pillWidth = useSpring(160, {stiffness: 220, damping: 25, mass: 1});
+  // Removed manual spring to allow dynamic "auto" width via animate prop
 
   // Scroll spy to detect which section is in view
   useEffect(() => {
@@ -64,18 +64,15 @@ export function Header() {
   }, []);
 
   // Handle hover expansion
-  // Handle hover expansion
   useEffect(() => {
     if (hovering) {
       setExpanded(true);
-      pillWidth.set(380);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
     } else {
       hoverTimeoutRef.current = setTimeout(() => {
         setExpanded(false);
-        pillWidth.set(160);
       }, 600);
     }
 
@@ -84,7 +81,7 @@ export function Header() {
         clearTimeout(hoverTimeoutRef.current);
       }
     };
-  }, [hovering, pillWidth]);
+  }, [hovering]);
 
   const handleMouseEnter = () => setHovering(true);
   const handleMouseLeave = () => setHovering(false);
@@ -109,11 +106,13 @@ export function Header() {
       {/* Desktop Navigation - Centered 3D Pill */}
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <motion.nav
+          initial={false}
+          animate={{width: expanded ? "auto" : 160}}
+          transition={{type: "spring", stiffness: 220, damping: 25, mass: 1}}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className="relative rounded-full"
           style={{
-            width: pillWidth,
             height: "56px",
             background: `linear-gradient(135deg, 
               rgba(10, 10, 10, 0.95) 0%, 

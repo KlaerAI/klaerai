@@ -19,8 +19,9 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Campus | The Future of Student Growth",
-  description: "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
+  title: "Lumen.AI | The Future of Student Growth",
+  description:
+    "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
 };
 
 export default function RootLayout({

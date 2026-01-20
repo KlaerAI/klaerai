@@ -46,7 +46,7 @@ export function Problem() {
               transition={{duration: 1, ease: REVEAL_EASE}}
               className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-tight tracking-tight pb-4"
             >
-              The Campus Experience <br className="hidden md:block" />
+              The Student Experience <br className="hidden md:block" />
               is <span className="text-[var(--accent-cyan)]">Fragmented</span>.
             </motion.h2>
           </div>

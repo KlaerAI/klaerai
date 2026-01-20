@@ -166,7 +166,7 @@ export function Header() {
                   }}
                   className="text-[var(--accent-cyan)] font-bold text-sm"
                 >
-                  DC
+                  Lumen
                 </a>
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -197,7 +197,7 @@ export function Header() {
                   }}
                   className="text-[var(--accent-cyan)] font-bold text-sm mr-4"
                 >
-                  DC
+                  Lumen
                 </a>
                 <div className="flex items-center gap-1">
                   {NAV_ITEMS.map((item, index) => {
@@ -242,7 +242,7 @@ export function Header() {
       <header className="fixed top-4 left-4 right-4 z-50 md:hidden">
         <div className="flex items-center justify-between px-4 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10">
           <a href="#vision" className="flex items-center gap-2">
-            <span className="text-[var(--accent-cyan)] font-bold">DC</span>
+            <span className="text-[var(--accent-cyan)] font-bold">Lumen</span>
             <span className="text-white font-medium text-sm">
               {getActiveLabel()}
             </span>

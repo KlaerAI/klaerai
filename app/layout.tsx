@@ -22,8 +22,40 @@ export const metadata: Metadata = {
   title: "Klaer AI | The Future of Student Growth",
   description:
     "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
+  keywords: [
+    "Klaer AI",
+    "Student Growth",
+    "AI Tutor",
+    "EdTech",
+    "College",
+    "Career",
+  ],
+  openGraph: {
+    title: "Klaer AI | The Future of Student Growth",
+    description:
+      "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
+    url: "https://klaer.ai",
+    siteName: "Klaer AI",
+    images: [
+      {
+        url: "/icon.png",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Klaer AI | The Future of Student Growth",
+    description:
+      "A digital ecosystem democratizing access to learning, opportunity, and professional growth.",
+    images: ["/icon.png"],
+  },
   icons: {
     icon: "/icon.png",
+    apple: "/icon.png",
   },
 };
 

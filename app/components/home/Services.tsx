@@ -9,41 +9,44 @@ import Link from "next/link";
 const SERVICES = [
   {
     id: "01",
-    title: "Intelligence over Information",
-    accentWord: "Intelligence",
+    title: "CodeLogs",
+    accentWord: "CodeLogs",
     desc: "Transforming scattered, uncivilized notes into an AI-powered neural network for your brain.",
     features: [
       "AI Document Synthesis",
       "Semantic Search",
       "Auto-Revision Engine",
     ],
+    link: "/codelogs",
   },
   {
     id: "02",
-    title: "Exposure without Barriers",
-    accentWord: "Exposure",
+    title: "Axiom",
+    accentWord: "Axiom",
     desc: "A unified infrastructure for technical and non-technical events that bridge the institutional gap.",
     features: [
       "Native Event Hosting",
       "Unified Discovery Hub",
       "Portfolio Continuity",
     ],
+    link: "/axiom",
   },
   {
     id: "03",
-    title: "Merit over Network",
-    accentWord: "Merit",
+    title: "Inkwell",
+    accentWord: "Inkwell",
     desc: "Connect with like-minded peers and collaborators based on verified skills, not social status.",
     features: [
       "Skill-Based Peer Matching",
       "Native Forum Discourse",
       "Authentic Endorsements",
     ],
+    link: "/inkwell",
   },
   {
     id: "04",
-    title: "Skills into Currency",
-    accentWord: "Currency",
+    title: "Opus",
+    accentWord: "Opus",
     desc: "A streamlined marketplace engineered to connect student talent with verified freelance opportunities.",
     features: [
       "Verified Freelance Gigs",
@@ -68,6 +71,7 @@ const DELAY_NUMBER = 0.1;
 const DELAY_TITLE = 0.25;
 const DELAY_DESC = 0.4;
 const DELAY_BULLETS = 0.6;
+const DELAY_BUTTON = 0.8;
 
 export function Services() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -140,15 +144,9 @@ export function Services() {
 
           {/* Services Grid */}
           <div className="lg:w-[60%] grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-16">
-            {SERVICES.map((item, index) =>
-              index === 0 ? (
-                <Link key={item.id} href="/coming-soon" className="block">
-                  <ServiceCard item={item} index={index} />
-                </Link>
-              ) : (
-                <ServiceCard key={item.id} item={item} index={index} />
-              ),
-            )}
+            {SERVICES.map((item, index) => (
+              <ServiceCard key={item.id} item={item} index={index} />
+            ))}
           </div>
         </div>
       </div>
@@ -236,7 +234,10 @@ function ServiceCard({
                       initial={{color: "#ffffff", textShadow: "none"}}
                       animate={
                         isInView
-                          ? {color: ACCENT_COLOR, textShadow: ACCENT_GLOW}
+                          ? {
+                              color: "#ffffff",
+                              textShadow: "0 0 10px rgba(255, 255, 255, 0.4)",
+                            }
                           : {}
                       }
                       // Color transition happens slightly after geometry reveal
@@ -258,7 +259,7 @@ function ServiceCard({
       </h3>
 
       {/* 4. Description (Word-by-Word Slide Up) */}
-      <div className="text-white/60 text-base md:text-lg leading-relaxed mix-blend-plus-lighter mb-8">
+      <div className="text-white/90 text-base md:text-lg leading-relaxed mix-blend-plus-lighter mb-8">
         <WordReveal
           text={item.desc}
           pDelay={baseDelay + DELAY_DESC}
@@ -267,7 +268,7 @@ function ServiceCard({
       </div>
 
       {/* 5. Bullets (Slide In) */}
-      <ul className="mt-auto space-y-3">
+      <ul className="mt-auto space-y-3 mb-6">
         {item.features.map((feature, i) => (
           <motion.li
             key={i}
@@ -288,6 +289,24 @@ function ServiceCard({
           </motion.li>
         ))}
       </ul>
+
+      {/* 6. Know More Button */}
+      <motion.div
+        initial={{opacity: 0, y: 10}}
+        animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 10}}
+        transition={{
+          duration: 0.4,
+          delay: baseDelay + DELAY_BUTTON,
+          ease: "easeOut",
+        }}
+      >
+        <Link
+          href={item.link || "#"}
+          className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[10px] md:text-xs font-medium uppercase tracking-wider border border-white/20 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
+        >
+          Know More
+        </Link>
+      </motion.div>
     </div>
   );
 }

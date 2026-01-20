@@ -1,7 +1,7 @@
 "use client";
 
-import React, {useRef} from "react";
-import {motion} from "framer-motion";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 // Founder data for both people
@@ -37,39 +37,37 @@ function FounderSection({
   return (
     <section
       ref={sectionRef}
-      className="relative bg-white text-black py-20 md:py-24 lg:py-32 overflow-hidden min-h-screen flex items-center"
+      className={`relative bg-white text-black overflow-hidden flex items-center ${index === 0 ? "pt-20 md:pt-24 lg:pt-32 pb-6 md:pb-10" : "pt-6 md:pt-10 pb-20 md:pb-24 lg:pb-32"
+        }`}
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full">
         {/* Section Label */}
-        <motion.div
-          initial={{opacity: 0, y: 20}}
-          whileInView={{opacity: 1, y: 0}}
-          viewport={{once: true}}
-          transition={{duration: 0.6, ease: [0.76, 0, 0.24, 1]}}
-          className="flex items-center gap-4 mb-12"
-        >
-          <span className="text-sm font-bold tracking-[0.3em] uppercase text-[var(--accent-cyan)]">
-            {index === 0 ? "About Us" : "Meet The Team"}
-          </span>
-          <div
-            className={`flex-1 h-[1px] ${
-              index === 0 ? "bg-black/10" : "bg-white/10"
-            }`}
-          />
-        </motion.div>
+        {index === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="flex items-center gap-4 mb-12"
+          >
+            <span className="text-sm font-bold tracking-[0.3em] uppercase text-[var(--accent-cyan)]">
+              About Us
+            </span>
+            <div className="flex-1 h-[1px] bg-black/10" />
+          </motion.div>
+        )}
 
         {/* Main Content */}
         <div
-          className={`flex flex-col ${
-            isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-          } gap-12 lg:gap-20 items-center`}
+          className={`flex flex-col ${isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
+            } gap-12 lg:gap-20 items-center`}
         >
           {/* Founder Image */}
           <motion.div
-            initial={{opacity: 0, x: isReversed ? 40 : -40}}
-            whileInView={{opacity: 1, x: 0}}
-            viewport={{once: true, margin: "-10%"}}
-            transition={{duration: 0.8, ease: [0.76, 0, 0.24, 1]}}
+            initial={{ opacity: 0, x: isReversed ? 40 : -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="w-full lg:w-5/12"
           >
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl group cursor-pointer">
@@ -111,16 +109,16 @@ function FounderSection({
 
           {/* Text Content */}
           <motion.div
-            initial={{opacity: 0, x: isReversed ? -40 : 40}}
-            whileInView={{opacity: 1, x: 0}}
-            viewport={{once: true, margin: "-10%"}}
-            transition={{duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1]}}
+            initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
             className="w-full lg:w-7/12"
           >
             {/* Quote */}
             <blockquote
               className="text-3xl md:text-4xl lg:text-5xl leading-snug mb-12"
-              style={{fontFamily: "var(--font-playfair), Georgia, serif"}}
+              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
             >
               <span className="italic font-normal">
                 "{founder.tagline.split(".")[0]}.
@@ -143,10 +141,10 @@ function FounderSection({
 
             {/* Animated Signature */}
             <motion.svg
-              initial={{pathLength: 0, opacity: 0}}
-              whileInView={{pathLength: 1, opacity: 0.6}}
-              viewport={{once: true}}
-              transition={{duration: 2, delay: 0.5, ease: "easeOut"}}
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 0.6 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
               className="w-48 md:w-64 h-16"
               viewBox="0 0 200 50"
               fill="none"
@@ -157,10 +155,10 @@ function FounderSection({
                 strokeWidth="2"
                 strokeLinecap="round"
                 fill="none"
-                initial={{pathLength: 0}}
-                whileInView={{pathLength: 1}}
-                viewport={{once: true}}
-                transition={{duration: 2, delay: 0.5, ease: "easeOut"}}
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
               />
             </motion.svg>
           </motion.div>

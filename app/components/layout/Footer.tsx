@@ -134,12 +134,20 @@ export function Footer() {
                 { label: "System", id: "#system" },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link
+                  <a
                     href={item.id}
-                    className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.querySelector(item.id);
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth" });
+                        history.pushState(null, "", " ");
+                      }
+                    }}
+                    className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium cursor-pointer"
                   >
                     {item.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

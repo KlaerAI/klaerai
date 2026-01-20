@@ -267,7 +267,16 @@ export function Header() {
       {/* Mobile Navigation */}
       <header className="fixed top-4 left-4 right-4 z-50 md:hidden">
         <div className="flex items-center justify-between px-4 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10">
-          <a href="#vision" className="flex items-center gap-2">
+          <a
+            href="#vision"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#vision")?.scrollIntoView({ behavior: "smooth" });
+              setActiveSection("vision");
+              history.pushState(null, "", " ");
+            }}
+            className="flex items-center gap-2"
+          >
             <span className="text-[var(--accent-cyan)] font-bold">Klaer</span>
             <span className="text-white font-medium text-sm">
               {getActiveLabel()}
@@ -299,8 +308,14 @@ export function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => {
-                    setActiveSection(item.id);
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.querySelector(item.href);
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                      setActiveSection(item.id);
+                      history.pushState(null, "", " ");
+                    }
                     setIsMobileMenuOpen(false);
                   }}
                   className="text-3xl font-light text-white hover:text-[var(--accent-cyan)] transition-colors"

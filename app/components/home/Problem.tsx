@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useRef} from "react";
-import {motion, useInView} from "framer-motion";
+import {motion} from "framer-motion";
 
 // --- Data (Condensed) ---
 const PROBLEMS = [
@@ -24,11 +24,10 @@ const PROBLEMS = [
 ];
 
 // --- Animations ---
-const REVEAL_EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+const REVEAL_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]; // Smoother "out" easing
 
 export function Problem() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, {once: true, margin: "-100px"});
 
   return (
     <section
@@ -42,8 +41,9 @@ export function Problem() {
           <div className="overflow-hidden">
             <motion.h2
               initial={{y: "100%"}}
-              animate={isInView ? {y: 0} : {y: "100%"}}
-              transition={{duration: 0.8, ease: REVEAL_EASE}}
+              whileInView={{y: 0}}
+              viewport={{once: true, margin: "-100px"}}
+              transition={{duration: 1, ease: REVEAL_EASE}}
               className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-tight tracking-tight pb-4"
             >
               The Campus Experience <br className="hidden md:block" />
@@ -57,11 +57,12 @@ export function Problem() {
           {PROBLEMS.map((item, i) => (
             <motion.div
               key={i}
-              initial={{opacity: 0, y: 20}}
-              animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
+              initial={{opacity: 0, y: 40}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, margin: "-50px"}}
               transition={{
-                duration: 0.6,
-                delay: 0.2 + i * 0.1,
+                duration: 0.8,
+                delay: i * 0.15,
                 ease: REVEAL_EASE,
               }}
               className="group relative p-8 md:p-10 min-h-[280px] md:min-h-[320px] flex flex-col justify-between cursor-default border-t border-l border-black/10 first:border-l-0 md:first:border-l lg:first:border-l-0 hover:bg-black hover:text-white transition-all duration-500"

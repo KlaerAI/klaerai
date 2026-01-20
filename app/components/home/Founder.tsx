@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useRef} from "react";
-import {motion, useInView} from "framer-motion";
+import {motion} from "framer-motion";
 import Image from "next/image";
 
 // Founder data for both people
@@ -33,7 +33,6 @@ function FounderSection({
   isReversed: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, {once: true, margin: "-100px"});
 
   return (
     <section
@@ -44,7 +43,8 @@ function FounderSection({
         {/* Section Label */}
         <motion.div
           initial={{opacity: 0, y: 20}}
-          animate={isInView ? {opacity: 1, y: 0} : {}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
           transition={{duration: 0.6, ease: [0.76, 0, 0.24, 1]}}
           className="flex items-center gap-4 mb-12"
         >
@@ -67,7 +67,8 @@ function FounderSection({
           {/* Founder Image */}
           <motion.div
             initial={{opacity: 0, x: isReversed ? 40 : -40}}
-            animate={isInView ? {opacity: 1, x: 0} : {}}
+            whileInView={{opacity: 1, x: 0}}
+            viewport={{once: true, margin: "-10%"}}
             transition={{duration: 0.8, ease: [0.76, 0, 0.24, 1]}}
             className="w-full lg:w-5/12"
           >
@@ -111,7 +112,8 @@ function FounderSection({
           {/* Text Content */}
           <motion.div
             initial={{opacity: 0, x: isReversed ? -40 : 40}}
-            animate={isInView ? {opacity: 1, x: 0} : {}}
+            whileInView={{opacity: 1, x: 0}}
+            viewport={{once: true, margin: "-10%"}}
             transition={{duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1]}}
             className="w-full lg:w-7/12"
           >
@@ -142,7 +144,8 @@ function FounderSection({
             {/* Animated Signature */}
             <motion.svg
               initial={{pathLength: 0, opacity: 0}}
-              animate={isInView ? {pathLength: 1, opacity: 0.6} : {}}
+              whileInView={{pathLength: 1, opacity: 0.6}}
+              viewport={{once: true}}
               transition={{duration: 2, delay: 0.5, ease: "easeOut"}}
               className="w-48 md:w-64 h-16"
               viewBox="0 0 200 50"
@@ -155,7 +158,8 @@ function FounderSection({
                 strokeLinecap="round"
                 fill="none"
                 initial={{pathLength: 0}}
-                animate={isInView ? {pathLength: 1} : {}}
+                whileInView={{pathLength: 1}}
+                viewport={{once: true}}
                 transition={{duration: 2, delay: 0.5, ease: "easeOut"}}
               />
             </motion.svg>

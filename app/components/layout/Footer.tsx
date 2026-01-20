@@ -1,18 +1,20 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Send, MessageCircle, Github, Mail } from "lucide-react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+
+const DYNAMIC_WORDS = ["Learning", "Networking", "Growth"];
 
 const FOOTER_LINKS = [
   {
     title: "Platform",
-    links: ["AI Tutor", "Events", "Marketplace", "Forum"],
+    links: ["CodeLogs", "Axiom", "Inkwell", "Opus"],
   },
   {
     title: "Company",
-    links: ["About", "Careers", "Blog", "Press"],
+    links: ["Vision", "Problem", "Expectations", "System"],
   },
   {
     title: "Resources",
@@ -45,6 +47,17 @@ export function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  const [wordIndex, setWordIndex] = useState(0);
+
+  // Cycle Dynamic Word (same as Services section)
+  useEffect(() => {
+    if (!isInView) return;
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % DYNAMIC_WORDS.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isInView]);
+
   return (
     <footer
       id="contact"
@@ -66,10 +79,28 @@ export function Footer() {
             <h4 className="text-xl font-bold text-white tracking-tight">
               Klaer <span className="text-[var(--accent-cyan)]">AI</span>
             </h4>
-            <p className="text-[var(--gray-body)] leading-relaxed max-w-sm">
-              Empowering the next generation of builders, creators, and leaders.
-              The future of campus connection is here.
-            </p>
+            <div className="text-[var(--gray-body)] leading-relaxed max-w-sm">
+              <div className="flex flex-col items-start gap-1">
+                <span>Empowering the next generation of</span>
+                <div className="h-[1.2em] overflow-hidden relative w-full">
+                  <AnimatePresence mode="popLayout">
+                    <motion.span
+                      key={wordIndex}
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: "-100%", opacity: 0 }}
+                      transition={{ duration: 0.8, ease: "easeInOut" }}
+                      className="block text-[var(--accent-cyan)] font-bold italic"
+                    >
+                      {DYNAMIC_WORDS[wordIndex]}.
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </div>
+              <p className="mt-2">
+                The future of campus connection is here.
+              </p>
+            </div>
           </div>
 
           {/* Links Columns */}
@@ -78,10 +109,10 @@ export function Footer() {
               Platform
             </h4>
             <ul className="space-y-3">
-              {["AI Tutor", "Events", "Marketplace", "Forum"].map((link) => (
+              {["CodeLogs", "Axiom", "Inkwell", "Opus"].map((link) => (
                 <li key={link}>
                   <Link
-                    href="#"
+                    href={`/${link.toLowerCase()}`}
                     className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium"
                   >
                     {link}
@@ -96,13 +127,18 @@ export function Footer() {
               Company
             </h4>
             <ul className="space-y-3">
-              {["About", "Careers", "Blog", "Press"].map((link) => (
-                <li key={link}>
+              {[
+                { label: "Vision", id: "#vision" },
+                { label: "Problem", id: "#problem" },
+                { label: "Expectations", id: "#expectations" },
+                { label: "System", id: "#system" },
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href="#"
+                    href={item.id}
                     className="text-[var(--gray-body)] hover:text-[var(--accent-cyan)] transition-colors text-sm font-medium"
                   >
-                    {link}
+                    {item.label}
                   </Link>
                 </li>
               ))}

@@ -14,6 +14,7 @@ const NAV_ITEMS: NavItem[] = [
   {label: "Vision", id: "vision", href: "#vision"},
   {label: "Problem", id: "problem", href: "#problem"},
   {label: "Services", id: "services", href: "#services"},
+  {label: "Expectations", id: "expectations", href: "#expectations"},
   {label: "About", id: "about", href: "#about"},
 ];
 
@@ -29,7 +30,14 @@ export function Header() {
 
   // Scroll spy to detect which section is in view
   useEffect(() => {
-    const sections = ["vision", "problem", "services", "about", "founder"];
+    const sections = [
+      "vision",
+      "problem",
+      "services",
+      "expectations",
+      "about",
+      "founder",
+    ];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200; // Offset for header height

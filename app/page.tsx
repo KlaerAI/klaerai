@@ -6,6 +6,7 @@ import {Header} from "./components/layout/Header";
 import {Hero} from "./components/home/Hero";
 import {Problem} from "./components/home/Problem";
 import {Services} from "./components/home/Services";
+import {Flywheel} from "./components/home/Flywheel";
 import {Founder} from "./components/home/Founder";
 import {Footer} from "./components/layout/Footer";
 
@@ -23,6 +24,7 @@ export default function Home() {
           <Hero />
           <Problem />
           <Services />
+          <Flywheel />
           <Founder />
         </main>
 

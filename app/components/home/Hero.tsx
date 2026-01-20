@@ -69,7 +69,9 @@ export function Hero() {
           {/* Main Headline */}
           <h1 className="text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] leading-[0.95] font-light tracking-[-0.03em] mb-8 md:mb-12">
             <span className="block text-white">Klaer.AI</span>
-            <span className="font-bold text-white">Infinite </span>
+            <span className="font-bold text-[var(--accent-cyan)]">
+              Infinite{" "}
+            </span>
             <span className="font-bold text-white">Opportunities</span>
             <span className="text-[var(--accent-cyan)]">.</span>
           </h1>
@@ -131,9 +133,7 @@ export function Hero() {
 }
 
 function PartnerModal({onClose}: {onClose: () => void}) {
-  const emails = [
-    "officialklaerai@gmail.com",
-  ];
+  const emails = ["officialklaerai@gmail.com"];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">

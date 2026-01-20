@@ -131,7 +131,7 @@ export function Services() {
                     transition={{duration: 0.8, ease: REVEAL_EASE, delay: 0.15}}
                     className="block whitespace-nowrap"
                   >
-                    Student Life
+                    On Campus
                   </motion.span>
                 </div>
               </h2>

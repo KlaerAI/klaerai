@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useSpring, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import React, {useState, useEffect, useRef} from "react";
+import {motion, useSpring, AnimatePresence} from "framer-motion";
+import {Menu, X} from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -11,12 +11,12 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Vision", id: "vision", href: "#vision" },
-  { label: "Problem", id: "problem", href: "#problem" },
-  { label: "Services", id: "services", href: "#services" },
-  { label: "System", id: "system", href: "#system" },
-  { label: "Expectations", id: "expectations", href: "#expectations" },
-  { label: "About", id: "about", href: "#about" },
+  {label: "Vision", id: "vision", href: "#vision"},
+  {label: "Problem", id: "problem", href: "#problem"},
+  {label: "Services", id: "services", href: "#services"},
+  {label: "System", id: "system", href: "#system"},
+  {label: "Expectations", id: "expectations", href: "#expectations"},
+  {label: "About", id: "about", href: "#about"},
 ];
 
 export function Header() {
@@ -51,7 +51,7 @@ export function Header() {
           for (const sectionId of sections) {
             const element = document.getElementById(sectionId);
             if (element) {
-              const { offsetTop, offsetHeight } = element;
+              const {offsetTop, offsetHeight} = element;
               if (
                 scrollPosition >= offsetTop &&
                 scrollPosition < offsetTop + offsetHeight
@@ -67,7 +67,7 @@ export function Header() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {passive: true});
     handleScroll(); // Initial check
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -117,8 +117,8 @@ export function Header() {
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <motion.nav
           initial={false}
-          animate={{ width: expanded ? "auto" : 160 }}
-          transition={{ type: "spring", stiffness: 220, damping: 25, mass: 1 }}
+          animate={{width: expanded ? "auto" : 160}}
+          transition={{type: "spring", stiffness: 220, damping: 25, mass: 1}}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className="relative rounded-full"
@@ -178,7 +178,7 @@ export function Header() {
                     e.preventDefault();
                     document
                       .querySelector("#vision")
-                      ?.scrollIntoView({ behavior: "smooth" });
+                      ?.scrollIntoView({behavior: "smooth"});
                     setActiveSection("vision");
                     history.pushState(null, "", " ");
                   }}
@@ -189,10 +189,10 @@ export function Header() {
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={activeSection}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    initial={{opacity: 0, y: 8}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: -8}}
+                    transition={{duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
                     className="text-white font-medium text-sm tracking-wide"
                   >
                     {getActiveLabel()}
@@ -210,7 +210,7 @@ export function Header() {
                     e.preventDefault();
                     document
                       .querySelector("#vision")
-                      ?.scrollIntoView({ behavior: "smooth" });
+                      ?.scrollIntoView({behavior: "smooth"});
                     setActiveSection("vision");
                     history.pushState(null, "", " ");
                   }}
@@ -225,8 +225,8 @@ export function Header() {
                       <motion.a
                         key={item.id}
                         href={item.href}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{opacity: 0, x: -10}}
+                        animate={{opacity: 1, x: 0}}
                         transition={{
                           delay: index * 0.05,
                           duration: 0.2,
@@ -236,22 +236,23 @@ export function Header() {
                           e.preventDefault();
                           const element = document.querySelector(item.href);
                           if (element) {
-                            // Use window.scrollTo instead of scrollIntoView to have more control if needed, 
-                            // but scrollIntoView with behavior smooth is standard. 
+                            // Use window.scrollTo instead of scrollIntoView to have more control if needed,
+                            // but scrollIntoView with behavior smooth is standard.
                             // Key is preventDefault() stops the hash.
-                            const yOffset = -80; // Account for header height? 
-                            // actually scrollIntoView centers or aligns top. 
+                            const yOffset = -80; // Account for header height?
+                            // actually scrollIntoView centers or aligns top.
                             // Let's stick to scrollIntoView but ensure NO hash.
-                            element.scrollIntoView({ behavior: "smooth" });
+                            element.scrollIntoView({behavior: "smooth"});
                             setActiveSection(item.id);
                             // Ensure URL doesn't look like /#vision
                             history.pushState(null, "", " ");
                           }
                         }}
-                        className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
-                          ? "text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
-                          : "text-white/70 hover:text-white hover:bg-white/5"
-                          }`}
+                        className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                          isActive
+                            ? "text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10"
+                            : "text-white/70 hover:text-white hover:bg-white/5"
+                        }`}
                       >
                         {item.label}
                       </motion.a>
@@ -266,27 +267,55 @@ export function Header() {
 
       {/* Mobile Navigation */}
       <header className="fixed top-4 left-4 right-4 z-50 md:hidden">
-        <div className="flex items-center justify-between px-4 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10">
+        <div
+          className="flex items-center justify-between px-5 py-3 rounded-full relative overflow-hidden"
+          style={{
+            background: `linear-gradient(135deg, 
+              rgba(10, 10, 10, 0.95) 0%, 
+              rgba(20, 20, 20, 0.9) 50%, 
+              rgba(15, 15, 15, 0.95) 100%
+            )`,
+            backdropFilter: "blur(20px)",
+            boxShadow: `
+              0 4px 16px rgba(0, 0, 0, 0.3),
+              0 2px 8px rgba(0, 188, 212, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+            `,
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+          }}
+        >
+          {/* Top highlight */}
+          <div
+            className="absolute inset-x-0 top-0 h-[1px] rounded-t-full pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.2) 80%, transparent 100%)",
+            }}
+          />
+
           <a
             href="#vision"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#vision")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#vision")
+                ?.scrollIntoView({behavior: "smooth"});
               setActiveSection("vision");
               history.pushState(null, "", " ");
             }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 relative z-10"
           >
             <span className="text-[var(--accent-cyan)] font-bold">Klaer</span>
-            <span className="text-white font-medium text-sm">
+            <span className="text-white font-medium text-sm border-l border-white/10 pl-2">
               {getActiveLabel()}
             </span>
           </a>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-white"
+            className="p-1 text-white/80 hover:text-white transition-colors relative z-10"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </header>
@@ -295,34 +324,51 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center md:hidden"
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center md:hidden"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(5,5,5,0.98), rgba(10,10,20,0.98))",
+            }}
           >
-            <nav className="flex flex-col items-center gap-6">
-              {NAV_ITEMS.map((item, index) => (
-                <motion.a
-                  key={item.id}
-                  href={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.querySelector(item.href);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                      setActiveSection(item.id);
-                      history.pushState(null, "", " ");
-                    }
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-3xl font-light text-white hover:text-[var(--accent-cyan)] transition-colors"
-                >
-                  {item.label}
-                </motion.a>
-              ))}
+            {/* Background Effects */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[var(--accent-cyan)]/10 blur-[100px] rounded-full mix-blend-screen" />
+              <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/10 blur-[100px] rounded-full mix-blend-screen" />
+            </div>
+
+            <nav className="flex flex-col items-center gap-8 relative z-10">
+              {NAV_ITEMS.map((item, index) => {
+                const isActive = item.id === activeSection;
+                return (
+                  <motion.a
+                    key={item.id}
+                    href={item.href}
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 0.1 + index * 0.05}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.querySelector(item.href);
+                      if (element) {
+                        element.scrollIntoView({behavior: "smooth"});
+                        setActiveSection(item.id);
+                        history.pushState(null, "", " ");
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`text-4xl font-light tracking-tight transition-all duration-300 ${
+                      isActive
+                        ? "text-[var(--accent-cyan)] scale-110 font-normal drop-shadow-[0_0_15px_rgba(0,188,212,0.4)]"
+                        : "text-white/60 hover:text-white"
+                    }`}
+                  >
+                    {item.label}
+                  </motion.a>
+                );
+              })}
             </nav>
           </motion.div>
         )}
